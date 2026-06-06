@@ -1,7 +1,8 @@
-import { HomePage } from "../features/home";
+
+import { AppRoutes } from "../routes";
 
 function App() {
-  return <HomePage />;
+  return <AppRoutes />;
 }
 
 export default App;

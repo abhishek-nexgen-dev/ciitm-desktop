@@ -1,4 +1,3 @@
-// config/sidebar.config.ts
 
 import {
   LayoutDashboard,
@@ -14,7 +13,17 @@ import {
   ClipboardList,
 } from "lucide-react";
 
-export const sidebarConfig = [
+import type { LucideIcon } from "lucide-react";
+
+export interface SidebarItemConfig {
+  id: string;
+  title: string;
+  icon: LucideIcon;
+  path: string;
+  badge?: string;
+}
+
+export const sidebarConfig: SidebarItemConfig[] = [
   {
     id: "dashboard",
     title: "Dashboard",

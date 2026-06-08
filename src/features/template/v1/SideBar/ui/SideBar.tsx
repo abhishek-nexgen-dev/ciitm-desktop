@@ -15,14 +15,15 @@ export const Sidebar = () => {
       sticky top-0
       flex flex-col
       transition-all duration-300
-
-      ${collapsed ? "w-20" : "w-72"}
+      px-[2vw]
+      ${collapsed ? "w-20" : "w-[20%]"}
     `}
     >
       {/* Logo */}
 
       <div
         className="
+        mb-[2vh]
         h-20
         px-6
         flex

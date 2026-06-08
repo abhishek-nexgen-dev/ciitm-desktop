@@ -1,4 +1,3 @@
-
 import {
   LayoutDashboard,
   GraduationCap,
@@ -49,7 +48,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     id: "finance",
     title: "Finance",
     icon: Wallet,
-    path: "/finance",
+    path: "/payment",
   },
 
   {

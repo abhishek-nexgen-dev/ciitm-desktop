@@ -41,7 +41,7 @@ export const sidebarConfig: SidebarItemConfig[] = [
     id: "students",
     title: "Students",
     icon: Users,
-    path: "/students",
+    path: "/student",
   },
 
   {

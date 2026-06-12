@@ -17,7 +17,7 @@ export default function DashboardCard({ isActive, title, value, logo, range }: D
         rounded-3xl
         border border-zinc-800
         bg-[#0d0d10]
-        w-[23%]
+        lg:w-[23%]
         p-6
         transition-all
         duration-300

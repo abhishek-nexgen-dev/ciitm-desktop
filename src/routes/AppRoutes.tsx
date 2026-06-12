@@ -3,6 +3,8 @@ import Template from "../features/template/v1/SideBar/Template";
 import { HomePage } from "../features/home";
 import DashboardPage from "../features/dashboard/v1/DashboardPage";
 import PaymentPage from "../features/payment/v1/PaymentPage";
+import LoginPage from "../features/login/LoginPage";
+import StudentPage from "../features/Student/StudentPage";
 
 function SimplePage({ title, description }: { title: string; description: string }) {
   return (
@@ -19,8 +21,8 @@ function SimplePage({ title, description }: { title: string; description: string
 export function AppRoutes() {
   return (
     <Routes>
+        <Route path="/" element={<LoginPage />} />
       <Route element={<Template />}>
-        <Route index element={<HomePage />} />
         <Route path="dashboard" element={<DashboardPage />} />
         <Route
           path="login"
@@ -28,7 +30,7 @@ export function AppRoutes() {
         />
         <Route
           path="student"
-          element={<SimplePage title="Student" description="Student area placeholder for v1." />}
+          element={<StudentPage />}
         />
         <Route
           path="teacher"

@@ -16,7 +16,7 @@ const DashboardPage = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center justify-center gap-[1.5vw] w-full ">
+        <div className="flex flex-wrap   p-6 lg:items-center lg:justify-center gap-[1.5vw] w-full ">
           {DASHBOARD_CARDS.map((card) => {
             const Icon = card.logo;
 

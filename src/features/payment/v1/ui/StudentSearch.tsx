@@ -1,13 +1,13 @@
-import { useCallback, useId, useState } from 'react'
-import { CheckCircle2, Search, ScanText } from 'lucide-react'
+import { useCallback, useId, useState } from "react";
+import { CheckCircle2, Search, ScanText } from "lucide-react";
 
 function StudentSearch() {
-  const inputId = useId()
-  const [studentId, setStudentId] = useState('CIITM_906953')
+  const inputId = useId();
+  const [studentId, setStudentId] = useState("CIITM_906953");
 
   const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-  }, [])
+    event.preventDefault();
+  }, []);
 
   return (
     <form
@@ -63,7 +63,7 @@ function StudentSearch() {
         Current selection: <span className="text-zinc-300">{studentId}</span>
       </p>
     </form>
-  )
+  );
 }
 
-export default StudentSearch
+export default StudentSearch;

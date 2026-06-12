@@ -1,26 +1,26 @@
-import { memo, useCallback, useId, useMemo, useState } from 'react'
-import { CreditCard, Landmark, Send } from 'lucide-react'
-import { FEE_TYPES, PAYMENT_METHODS } from '../config/payment.config'
+import { memo, useCallback, useId, useMemo, useState } from "react";
+import { CreditCard, Landmark, Send } from "lucide-react";
+import { FEE_TYPES, PAYMENT_METHODS } from "../config/payment.config";
 
-type FeeType = (typeof FEE_TYPES)[number]
-type PaymentMethod = (typeof PAYMENT_METHODS)[number]
+type FeeType = (typeof FEE_TYPES)[number];
+type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
 function PaymentForm() {
-  const feeTypeId = useId()
-  const paymentMethodId = useId()
-  const amountId = useId()
-  const notesId = useId()
+  const feeTypeId = useId();
+  const paymentMethodId = useId();
+  const amountId = useId();
+  const notesId = useId();
 
-  const [feeType, setFeeType] = useState<FeeType>(FEE_TYPES[0])
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PAYMENT_METHODS[0])
-  const [amount, setAmount] = useState('')
-  const [notes, setNotes] = useState('')
+  const [feeType, setFeeType] = useState<FeeType>(FEE_TYPES[0]);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(PAYMENT_METHODS[0]);
+  const [amount, setAmount] = useState("");
+  const [notes, setNotes] = useState("");
 
-  const isSubmitDisabled = useMemo(() => amount.trim().length === 0, [amount])
+  const isSubmitDisabled = useMemo(() => amount.trim().length === 0, [amount]);
 
   const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-  }, [])
+    event.preventDefault();
+  }, []);
 
   return (
     <form
@@ -40,7 +40,9 @@ function PaymentForm() {
 
       <div className="mt-6 space-y-4">
         <div className="space-y-2">
-          <label htmlFor={feeTypeId} className="text-sm text-zinc-300">Fee type</label>
+          <label htmlFor={feeTypeId} className="text-sm text-zinc-300">
+            Fee type
+          </label>
           <select
             id={feeTypeId}
             value={feeType}
@@ -54,7 +56,9 @@ function PaymentForm() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor={paymentMethodId} className="text-sm text-zinc-300">Payment method</label>
+          <label htmlFor={paymentMethodId} className="text-sm text-zinc-300">
+            Payment method
+          </label>
           <select
             id={paymentMethodId}
             value={paymentMethod}
@@ -69,7 +73,9 @@ function PaymentForm() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <label htmlFor={amountId} className="text-sm text-zinc-300">Amount</label>
+            <label htmlFor={amountId} className="text-sm text-zinc-300">
+              Amount
+            </label>
             <input
               id={amountId}
               value={amount}
@@ -81,7 +87,9 @@ function PaymentForm() {
           </div>
 
           <div className="space-y-2">
-            <label htmlFor={notesId} className="text-sm text-zinc-300">Notes</label>
+            <label htmlFor={notesId} className="text-sm text-zinc-300">
+              Notes
+            </label>
             <textarea
               id={notesId}
               rows={4}
@@ -111,7 +119,7 @@ function PaymentForm() {
         </button>
       </div>
     </form>
-  )
+  );
 }
 
-export default memo(PaymentForm)
+export default memo(PaymentForm);

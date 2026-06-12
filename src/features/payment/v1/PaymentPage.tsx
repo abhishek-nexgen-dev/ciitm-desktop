@@ -1,17 +1,23 @@
-import StudentSearch from './ui/StudentSearch'
-import FinanceStatCard from './ui/FinanceStatCard'
-import StudentProfileCard from './ui/StudentProfileCard'
-import FeeProgressCard from './ui/FeeProgressCard'
-import PaymentForm from './ui/PaymentForm'
-import FeeBreakdownCard from './ui/FeeBreakdownCard'
-import PaymentTimeline from './ui/PaymentTimeline'
-import { Banknote, ShieldCheck, Sparkles, TrendingUp, Wallet, CircleDollarSign, BadgePercent, ReceiptText } from 'lucide-react'
+import StudentSearch from "./ui/StudentSearch";
+import FinanceStatCard from "./ui/FinanceStatCard";
+import StudentProfileCard from "./ui/StudentProfileCard";
+import FeeProgressCard from "./ui/FeeProgressCard";
+import PaymentForm from "./ui/PaymentForm";
+import FeeBreakdownCard from "./ui/FeeBreakdownCard";
+import PaymentTimeline from "./ui/PaymentTimeline";
 import {
-  PAYMENT_SUMMARY_METRICS,
-} from './config/payment.config'
+  Banknote,
+  ShieldCheck,
+  Sparkles,
+  TrendingUp,
+  Wallet,
+  CircleDollarSign,
+  BadgePercent,
+  ReceiptText,
+} from "lucide-react";
+import { PAYMENT_SUMMARY_METRICS } from "./config/payment.config";
 
-
-const summaryIconMap = [Wallet, CircleDollarSign, BadgePercent, ReceiptText]
+const summaryIconMap = [Wallet, CircleDollarSign, BadgePercent, ReceiptText];
 
 const PaymentPage = () => {
   return (
@@ -30,12 +36,11 @@ const PaymentPage = () => {
                 </h1>
 
                 <p className="mt-4 max-w-xl text-base leading-7 text-zinc-400 sm:text-lg">
-                  Manage student fees with ease - track payments, monitor progress, and ensure timely collections all in one place.
+                  Manage student fees with ease - track payments, monitor progress, and ensure
+                  timely collections all in one place.
                 </p>
               </div>
             </div>
-
-          
           </div>
         </section>
 
@@ -47,7 +52,7 @@ const PaymentPage = () => {
 
             <div className="grid gap-4 sm:grid-cols-2">
               {PAYMENT_SUMMARY_METRICS.map((metric, index) => {
-                const Icon = summaryIconMap[index] ?? Wallet
+                const Icon = summaryIconMap[index] ?? Wallet;
 
                 return (
                   <FinanceStatCard
@@ -57,7 +62,7 @@ const PaymentPage = () => {
                     tone={metric.tone}
                     icon={Icon}
                   />
-                )
+                );
               })}
             </div>
 
@@ -72,7 +77,7 @@ const PaymentPage = () => {
         </section>
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default PaymentPage
+export default PaymentPage;

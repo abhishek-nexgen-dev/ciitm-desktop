@@ -32,10 +32,7 @@ export function PasswordInput() {
         focus-within:border-indigo-500
       "
       >
-        <Lock
-          size={18}
-          className="mr-3 text-slate-500"
-        />
+        <Lock size={18} className="mr-3 text-slate-500" />
 
         <input
           type={show ? "text" : "password"}
@@ -48,16 +45,8 @@ export function PasswordInput() {
         "
         />
 
-        <button
-          type="button"
-          onClick={() => setShow(!show)}
-          className="text-slate-500"
-        >
-          {show ? (
-            <EyeOff size={18} />
-          ) : (
-            <Eye size={18} />
-          )}
+        <button type="button" onClick={() => setShow(!show)} className="text-slate-500">
+          {show ? <EyeOff size={18} /> : <Eye size={18} />}
         </button>
       </div>
     </div>

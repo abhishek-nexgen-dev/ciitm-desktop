@@ -26,10 +26,7 @@ export function LoginCard() {
       <Header />
 
       <form className="space-y-5 mt-8">
-        <AuthInput
-          label="Username or Email"
-          placeholder="admin@ciitm.edu.in"
-        />
+        <AuthInput label="Username or Email" placeholder="admin@ciitm.edu.in" />
 
         <PasswordInput />
 
@@ -54,13 +51,9 @@ function Header() {
         <Building2 size={30} />
       </div>
 
-      <h1 className="mt-5 text-3xl font-bold text-white">
-        CIITM ERP
-      </h1>
+      <h1 className="mt-5 text-3xl font-bold text-white">CIITM ERP</h1>
 
-      <p className="mt-2 text-slate-400">
-        Welcome to CIITM Admin Portal
-      </p>
+      <p className="mt-2 text-slate-400">Welcome to CIITM Admin Portal</p>
     </div>
   );
 }
@@ -73,10 +66,7 @@ function Options() {
         Remember me
       </label>
 
-      <button
-        type="button"
-        className="text-indigo-400 hover:text-indigo-300"
-      >
+      <button type="button" className="text-indigo-400 hover:text-indigo-300">
         Forgot Password?
       </button>
     </div>
@@ -98,12 +88,7 @@ function SignInButton() {
       active:scale-[0.99]
     "
     >
-
-      <Link to="/dashboard" >
-            Sign In To Portal
-            
-    </Link>
-
+      <Link to="/dashboard">Sign In To Portal</Link>
     </button>
   );
 }

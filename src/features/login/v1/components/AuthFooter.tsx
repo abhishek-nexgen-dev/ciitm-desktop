@@ -9,9 +9,7 @@ export function AuthFooter() {
       "
       >
         Technical issues?
-        <button className="ml-1 text-indigo-400">
-          Contact ERP Helpdesk
-        </button>
+        <button className="ml-1 text-indigo-400">Contact ERP Helpdesk</button>
       </p>
 
       <div

@@ -1,13 +1,5 @@
 import { memo } from "react";
-import {
-  BadgeCheck,
-  Mail,
-  School2,
-  UserCircle2,
-  Phone,
-  GraduationCap,
-  IdCard,
-} from "lucide-react";
+import { BadgeCheck, Mail, School2, UserCircle2, Phone, GraduationCap, IdCard } from "lucide-react";
 
 import { PAYMENT_STUDENT_PROFILE } from "../config/payment.config";
 
@@ -74,9 +66,7 @@ function StudentProfileCard() {
         {/* Quick Stats */}
         <div className="mt-6 grid w-full grid-cols-2 gap-3">
           <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-left">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-              Program
-            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Program</p>
 
             <p className="mt-2 flex items-center gap-2 text-sm font-medium text-white">
               <GraduationCap size={15} />
@@ -85,19 +75,13 @@ function StudentProfileCard() {
           </div>
 
           <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-left">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-              Semester
-            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Semester</p>
 
-            <p className="mt-2 text-sm font-medium text-white">
-              Semester 1
-            </p>
+            <p className="mt-2 text-sm font-medium text-white">Semester 1</p>
           </div>
 
           <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-left col-span-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-              Email Address
-            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Email Address</p>
 
             <p className="mt-2 flex items-center gap-2 text-sm font-medium text-white">
               <Mail size={15} className="text-zinc-400" />
@@ -106,9 +90,7 @@ function StudentProfileCard() {
           </div>
 
           <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-left col-span-2">
-            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-              Mobile Number
-            </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Mobile Number</p>
 
             <p className="mt-2 flex items-center gap-2 text-sm font-medium text-white">
               <Phone size={15} className="text-zinc-400" />
@@ -116,8 +98,6 @@ function StudentProfileCard() {
             </p>
           </div>
         </div>
-
-       
       </div>
     </section>
   );

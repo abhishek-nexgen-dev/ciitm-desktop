@@ -5,10 +5,7 @@ interface Props {
   placeholder: string;
 }
 
-export function AuthInput({
-  label,
-  placeholder,
-}: Props) {
+export function AuthInput({ label, placeholder }: Props) {
   return (
     <div>
       <label
@@ -38,10 +35,7 @@ export function AuthInput({
         focus-within:border-indigo-500
       "
       >
-        <Mail
-          size={18}
-          className="mr-3 text-slate-500"
-        />
+        <Mail size={18} className="mr-3 text-slate-500" />
 
         <input
           placeholder={placeholder}

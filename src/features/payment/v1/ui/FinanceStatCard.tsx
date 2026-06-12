@@ -1,11 +1,6 @@
 import { memo } from "react";
 import clsx from "clsx";
-import {
-  ArrowUpRight,
-  ArrowDownRight,
-  Activity,
-  type LucideIcon,
-} from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, Activity, type LucideIcon } from "lucide-react";
 
 interface Props {
   title: string;
@@ -86,7 +81,7 @@ function FinanceStatCard({
         duration-300
         hover:-translate-y-1
       `,
-        style.glow
+        style.glow,
       )}
     >
       {/* Background Icon */}
@@ -105,27 +100,19 @@ function FinanceStatCard({
       {/* Header */}
       <div className="relative flex items-start justify-between">
         <div>
-          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">
-            {title}
-          </p>
+          <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">{title}</p>
 
-          <h3 className="mt-4 text-5xl font-bold tracking-tight text-white">
-            {value}
-          </h3>
+          <h3 className="mt-4 text-5xl font-bold tracking-tight text-white">{value}</h3>
         </div>
 
         {growth && (
           <div
             className={clsx(
               "flex items-center gap-1 rounded-full px-3 py-1.5 text-xs font-medium",
-              style.chip
+              style.chip,
             )}
           >
-            {trend === "up" ? (
-              <ArrowUpRight size={14} />
-            ) : (
-              <ArrowDownRight size={14} />
-            )}
+            {trend === "up" ? <ArrowUpRight size={14} /> : <ArrowDownRight size={14} />}
 
             {growth}
           </div>
@@ -133,31 +120,20 @@ function FinanceStatCard({
       </div>
 
       {/* Description */}
-      {subtitle && (
-        <p className="mt-3 text-sm text-zinc-400">
-          {subtitle}
-        </p>
-      )}
+      {subtitle && <p className="mt-3 text-sm text-zinc-400">{subtitle}</p>}
 
       {/* Progress */}
       {progress !== undefined && (
         <div className="mt-6">
           <div className="mb-2 flex justify-between text-xs">
-            <span className="text-zinc-500">
-              Collection Progress
-            </span>
+            <span className="text-zinc-500">Collection Progress</span>
 
-            <span className={style.accent}>
-              {progress}%
-            </span>
+            <span className={style.accent}>{progress}%</span>
           </div>
 
           <div className="h-2 rounded-full bg-zinc-800">
             <div
-              className={clsx(
-                "h-full rounded-full transition-all",
-                style.progress
-              )}
+              className={clsx("h-full rounded-full transition-all", style.progress)}
               style={{
                 width: `${progress}%`,
               }}
@@ -169,24 +145,16 @@ function FinanceStatCard({
       {/* Footer */}
       <div className="mt-6 flex items-center justify-between border-t border-white/5 pt-4">
         <div>
-          <p className="text-xs text-zinc-500">
-            Status
-          </p>
+          <p className="text-xs text-zinc-500">Status</p>
 
-          <p className={clsx("text-sm font-medium", style.accent)}>
-            Live Tracking
-          </p>
+          <p className={clsx("text-sm font-medium", style.accent)}>Live Tracking</p>
         </div>
 
         {metric && (
           <div className="text-right">
-            <p className="text-xs text-zinc-500">
-              Additional Metric
-            </p>
+            <p className="text-xs text-zinc-500">Additional Metric</p>
 
-            <p className="text-sm font-medium text-white">
-              {metric}
-            </p>
+            <p className="text-sm font-medium text-white">{metric}</p>
           </div>
         )}
       </div>

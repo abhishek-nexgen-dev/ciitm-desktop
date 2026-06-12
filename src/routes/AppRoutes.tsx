@@ -5,6 +5,7 @@ import DashboardPage from "../features/dashboard/v1/DashboardPage";
 import PaymentPage from "../features/payment/v1/PaymentPage";
 import LoginPage from "../features/login/LoginPage";
 import StudentPage from "../features/Student/StudentPage";
+import StudentProfilePage from "../features/Student/StudentProfilePage";
 
 function SimplePage({ title, description }: { title: string; description: string }) {
   return (
@@ -21,25 +22,20 @@ function SimplePage({ title, description }: { title: string; description: string
 export function AppRoutes() {
   return (
     <Routes>
-        <Route path="/" element={<LoginPage />} />
+      <Route path="/" element={<LoginPage />} />
       <Route element={<Template />}>
         <Route path="dashboard" element={<DashboardPage />} />
         <Route
           path="login"
           element={<SimplePage title="Login" description="Login screen placeholder for v1." />}
         />
-        <Route
-          path="student"
-          element={<StudentPage />}
-        />
+        <Route path="student" element={<StudentPage />} />
+        <Route path="student/:studentId" element={<StudentProfilePage />} />
         <Route
           path="teacher"
           element={<SimplePage title="Teacher" description="Teacher area placeholder for v1." />}
         />
-        <Route
-          path="payment"
-          element={<PaymentPage/>}
-        />
+        <Route path="payment" element={<PaymentPage />} />
         <Route
           path="status"
           element={<SimplePage title="Status" description="Status view placeholder for v1." />}

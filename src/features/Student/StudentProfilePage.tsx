@@ -1,11 +1,4 @@
-import {
-  User,
-  Users,
-  GraduationCap,
-  MapPin,
-  Activity,
-  ClipboardList,
-} from "lucide-react";
+import { User, Users, GraduationCap, MapPin, Activity, ClipboardList } from "lucide-react";
 import Card from "./v1/Components/Card";
 import PersonalInformation from "./v1/Components/PersonalInformation";
 import AcademicCredentials from "./v1/Components/AcademicCredentials";
@@ -19,7 +12,6 @@ export default function StudentProfilePage() {
   return (
     <div className="min-h-screen bg-[#0B0C10] p-4 lg:p-6">
       <div className="mx-auto max-w-7xl space-y-4">
-   
         <StudentProfileHeader />
 
         {/* Content */}
@@ -41,14 +33,6 @@ export default function StudentProfilePage() {
   );
 }
 
-
-
-
-
-
-
-
-
 function SystemActions() {
   return (
     <Card>
@@ -57,56 +41,27 @@ function SystemActions() {
       </h3>
 
       <div className="mt-5 space-y-3">
-        <ActionButton>
-          Reset LMS Credentials
-        </ActionButton>
+        <ActionButton>Reset LMS Credentials</ActionButton>
 
-        <ActionButton>
-          Issue Bonafide Certificate
-        </ActionButton>
+        <ActionButton>Issue Bonafide Certificate</ActionButton>
 
-        <ActionButton danger>
-          Mark For Suspension
-        </ActionButton>
+        <ActionButton danger>Mark For Suspension</ActionButton>
       </div>
     </Card>
   );
 }
 
-
-
-
-
-
-
-
-function StatCard({
-  title,
-  value,
-}: {
-  title: string;
-  value: string;
-}) {
+function StatCard({ title, value }: { title: string; value: string }) {
   return (
     <div className="min-w-[100px] rounded-lg border border-zinc-800 bg-zinc-950 p-4">
-      <p className="text-xs uppercase text-zinc-500">
-        {title}
-      </p>
+      <p className="text-xs uppercase text-zinc-500">{title}</p>
 
-      <p className="mt-2 text-xl font-bold text-white">
-        {value}
-      </p>
+      <p className="mt-2 text-xl font-bold text-white">{value}</p>
     </div>
   );
 }
 
-function Badge({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+function Badge({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
     <span
       className={`inline-flex rounded-md bg-blue-500/10 px-2.5 py-1 text-xs text-blue-400 ${className}`}
@@ -116,15 +71,7 @@ function Badge({
   );
 }
 
-
-
-function ActionButton({
-  children,
-  danger,
-}: {
-  children: React.ReactNode;
-  danger?: boolean;
-}) {
+function ActionButton({ children, danger }: { children: React.ReactNode; danger?: boolean }) {
   return (
     <button
       className={`w-full rounded-lg border px-4 py-3 text-left text-sm transition ${

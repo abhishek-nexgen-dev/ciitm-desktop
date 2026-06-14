@@ -1,13 +1,6 @@
 import React from "react";
 
-
-function SectionTitle({
-  title,
-  icon,
-}: {
-  title: string;
-  icon: React.ReactNode;
-}) {
+function SectionTitle({ title, icon }: { title: string; icon: React.ReactNode }) {
   return (
     <div className="flex items-center gap-2 text-white">
       {icon}
@@ -15,6 +8,5 @@ function SectionTitle({
     </div>
   );
 }
-
 
 export default SectionTitle;

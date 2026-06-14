@@ -1,7 +1,7 @@
-import React from 'react'
-import Card from './Card'
-import StatCard from './StatCard'
-import { Badge, Bell, Pencil, TrendingUp } from 'lucide-react'
+import React from "react";
+import Card from "./Card";
+import StatCard from "./StatCard";
+import { Badge, Bell, Pencil, TrendingUp } from "lucide-react";
 
 const StudentProfileHeader = () => {
   return (
@@ -25,9 +25,7 @@ const StudentProfileHeader = () => {
           <div className="flex-1">
             {/* Name */}
             <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl font-bold text-white">
-                Rahul Kumar
-              </h1>
+              <h1 className="text-2xl font-bold text-white">Rahul Kumar</h1>
 
               <Badge>Active</Badge>
 
@@ -122,24 +120,15 @@ const StudentProfileHeader = () => {
             xl:grid-cols-1
           "
         >
-          <StatCard
-            title="Attendance"
-            value="92%"
-          />
+          <StatCard title="Attendance" value="92%" />
 
-          <StatCard
-            title="Current GPA"
-            value="8.5"
-          />
+          <StatCard title="Current GPA" value="8.5" />
 
-          <StatCard
-            title="Pending Dues"
-            value="0"
-          />
+          <StatCard title="Pending Dues" value="0" />
         </div>
       </div>
     </Card>
-  )
-}
+  );
+};
 
-export default StudentProfileHeader
+export default StudentProfileHeader;

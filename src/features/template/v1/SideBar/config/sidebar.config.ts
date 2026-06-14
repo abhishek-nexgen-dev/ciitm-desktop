@@ -38,6 +38,13 @@ export const sidebarConfig: SidebarItemConfig[] = [
   },
 
   {
+    id: "course-management",
+    title: "Course Management",
+    icon: BookOpen,
+    path: "/course-management",
+  },
+
+  {
     id: "students",
     title: "Students",
     icon: Users,

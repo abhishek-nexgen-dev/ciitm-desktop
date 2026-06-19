@@ -1,4 +1,4 @@
-import { Activity, ClipboardList } from "lucide-react";
+import { Activity } from "lucide-react";
 import Card from "./v1/Components/Card";
 import SectionTitle from "./v1/Components/SectionTitle";
 

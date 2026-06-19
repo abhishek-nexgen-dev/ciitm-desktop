@@ -1,4 +1,3 @@
-import { User, Users, GraduationCap, MapPin, Activity, ClipboardList } from "lucide-react";
 import Card from "./v1/Components/Card";
 import PersonalInformation from "./v1/Components/PersonalInformation";
 import AcademicCredentials from "./v1/Components/AcademicCredentials";
@@ -7,6 +6,7 @@ import EngagementCard from "./EngagementCard";
 import AdministrativeNotes from "./v1/Components/AdministrativeNotes";
 
 import StudentProfileHeader from "./v1/Components/StudentProfileHeader";
+import { ParentInfoCard } from "./v1/Components/ParentInfoCard";
 
 export default function StudentProfilePage() {
   return (
@@ -17,7 +17,10 @@ export default function StudentProfilePage() {
         {/* Content */}
         <div className="grid gap-4 lg:grid-cols-12">
           <div className="space-y-4 lg:col-span-8">
-            <PersonalInformation />
+            <div className="flex gap-2">
+              <PersonalInformation />
+              <ParentInfoCard fatherName="asfd" motherName="asfd" emergencyPhone="asfd" />
+            </div>
             <AcademicCredentials />
             <AddressCard />
           </div>
@@ -48,26 +51,6 @@ function SystemActions() {
         <ActionButton danger>Mark For Suspension</ActionButton>
       </div>
     </Card>
-  );
-}
-
-function StatCard({ title, value }: { title: string; value: string }) {
-  return (
-    <div className="min-w-[100px] rounded-lg border border-zinc-800 bg-zinc-950 p-4">
-      <p className="text-xs uppercase text-zinc-500">{title}</p>
-
-      <p className="mt-2 text-xl font-bold text-white">{value}</p>
-    </div>
-  );
-}
-
-function Badge({ children, className = "" }: { children: React.ReactNode; className?: string }) {
-  return (
-    <span
-      className={`inline-flex rounded-md bg-blue-500/10 px-2.5 py-1 text-xs text-blue-400 ${className}`}
-    >
-      {children}
-    </span>
   );
 }
 

@@ -1,7 +1,9 @@
 import { Bold, Italic, Link2 } from "lucide-react";
 import { SectionTitle } from "./SectionTitle";
+import useCourseForm from "../hooks/useCourseForm";
 
 export function ProgramDescription() {
+  const { watch, setValue } = useCourseForm();
   return (
     <section className="space-y-6">
       <SectionTitle number="04" title="Program Description" />
@@ -22,6 +24,11 @@ export function ProgramDescription() {
         </div>
 
         <textarea
+          value={watch("courseDescription")}
+          onChange={(e) => {
+            const value = e.target.value;
+            setValue("courseDescription", value);
+          }}
           rows={12}
           placeholder="Describe the curriculum, learning modules, and career pathways available to students..."
           className="w-full resize-none bg-zinc-950 p-5 text-zinc-200 outline-none"

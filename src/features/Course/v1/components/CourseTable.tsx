@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import CoursePagination from "./CoursePagination";
 import CourseTableRow from "./CourseTableRow";
 
@@ -77,7 +76,7 @@ const CourseTable: React.FC = () => {
   };
 
   // Render bars for students count indicator
-  const renderBars = (count: number) => {
+  const renderBars = () => {
     const bars = [];
     for (let i = 0; i < 4; i++) {
       bars.push(
@@ -93,10 +92,10 @@ const CourseTable: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#121212] text-white rounded-md shadow-md max-w-full overflow-x-auto mt-[4vh]">
-      <table className="min-w-full border-collapse border border-gray-700 text-sm">
+    <div className="bg-[#121212] text-white rounded-lg shadow-md max-w-full overflow-x-auto mt-[4vh]">
+      <table className="min-w-full border-collapse border border-zinc-800  text-sm">
         <thead>
-          <tr className="bg-black border-b border-gray-700 text-left text-md uppercase text-gray-400">
+          <tr className="bg-black border-b border-zinc-800 text-left text-md uppercase text-gray-400">
             <th className="px-3 py-4 ">CODE</th>
             <th className="px-3 py-4">COURSE NAME</th>
             <th className="px-3 py-4 ">DEPARTMENT</th>

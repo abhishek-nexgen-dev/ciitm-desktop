@@ -1,16 +1,23 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+
+import LoginPage from "./features/login/LoginPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App";
 
 describe("App", () => {
   it("renders the home page heading", () => {
+    const queryClient = new QueryClient();
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>,
+      <>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <LoginPage />
+          </BrowserRouter>
+        </QueryClientProvider>
+      </>,
     );
-
-    expect(screen.getByText(/CIITM Desktop v1/i)).toBeInTheDocument();
+    const headingElement = screen.getByText(/CIITM ERP/i);
+    expect(headingElement).toBeInTheDocument();
   });
 });

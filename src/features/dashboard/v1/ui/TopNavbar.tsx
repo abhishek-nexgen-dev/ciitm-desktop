@@ -1,4 +1,4 @@
-import { Bell, Search, Grid3X3, CircleHelp, ChevronDown } from "lucide-react";
+import { Bell, Grid3X3, CircleHelp } from "lucide-react";
 import { memo } from "react";
 
 function TopNavbar() {

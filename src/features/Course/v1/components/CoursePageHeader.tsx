@@ -22,7 +22,7 @@ export function CoursePageHeader() {
             Delete Draft
           </button>
 
-          <button className="h-12 rounded-lg bg-blue-500 px-6 font-medium text-black">
+          <button type="submit" className="h-12 rounded-lg bg-blue-500 px-6 font-medium text-black">
             Save Course
           </button>
         </div>

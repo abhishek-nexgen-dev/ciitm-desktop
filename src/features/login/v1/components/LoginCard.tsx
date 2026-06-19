@@ -1,20 +1,60 @@
+import { toast } from "react-toastify";
+import useLoginForm from "../hooks/useLoginForm";
+import useLogin from "../hooks/useLogin";
 import { Building2 } from "lucide-react";
-import { AuthInput } from "./AuthInput";
-import { PasswordInput } from "./PasswordInput";
 import { SocialLogin } from "./SocialLogin";
 import { SecurityBadges } from "./SecurityBadges";
 import { AuthFooter } from "./AuthFooter";
-import { Link } from "react-router-dom";
+import Input from "../../../../Components/Input";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useAuthStorage from "../hooks/useAuthStorage";
 
 export function LoginCard() {
+  const { watch, setValue, formState, handleSubmit } = useLoginForm();
+  const { errors } = formState;
+  const [email, setEmail] = useState(watch("email"));
+  const [password, setPassword] = useState(watch("password"));
+
+  const isRememberMe = useAuthStorage((state) => state.isRememberMe);
+
+  const loginMutation = useLogin();
+  const navigate = useNavigate();
+
+  const onSubmit = async (data: { email: string; password: string }) => {
+    try {
+      console.log("Data ----->", data);
+      const res = await loginMutation.mutateAsync({
+        email: data.email,
+        password: data.password,
+      });
+
+      const user = res.data.user;
+
+      if (user.role !== "admin") {
+        toast.error("You are not authorized to access this portal.");
+        return;
+      }
+
+      toast.success("Login successful! Redirecting to dashboard...");
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+
+      console.log("Response ----->", res);
+    } catch (error) {
+      toast.error("Login failed: " + (error instanceof Error ? error.message : String(error)));
+    }
+  };
+
   return (
     <div
       className="
       w-full
       max-w-md
       rounded-3xl
-      
-     border
+      border
       border-zinc-800
       bg-black
       backdrop-blur-xl
@@ -25,10 +65,34 @@ export function LoginCard() {
     >
       <Header />
 
-      <form className="space-y-5 mt-8">
-        <AuthInput label="Username or Email" placeholder="admin@ciitm.edu.in" />
+      <form className="space-y-5 mt-8" onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          name="email"
+          label="Email"
+          placeholder="Enter your email"
+          type="email"
+          value={email}
+          onChange={(name, value) => {
+            setValue("email", value);
+            setEmail(value);
+          }}
+          error={errors.email?.message}
+          readonly={false}
+        />
 
-        <PasswordInput />
+        <Input
+          name="password"
+          label="Password"
+          placeholder="Enter your password"
+          type={isRememberMe ? "text" : "password"}
+          value={password}
+          onChange={(name, value) => {
+            setValue("password", value);
+            setPassword(value);
+          }}
+          error={errors.password?.message}
+          readonly={false}
+        />
 
         <Options />
 
@@ -59,10 +123,18 @@ function Header() {
 }
 
 function Options() {
+  const isRememberMe = useAuthStorage((state) => state.isRememberMe);
+
+  const setIsRememberMe = useAuthStorage((state) => state.setIsRememberMe);
+
+  const handleRememberMeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setIsRememberMe(event.target.checked);
+  };
+
   return (
     <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
       <label className="flex items-center gap-2 text-slate-400">
-        <input type="checkbox" />
+        <input type="checkbox" checked={isRememberMe} onChange={handleRememberMeChange} />
         Remember me
       </label>
 
@@ -76,6 +148,7 @@ function Options() {
 function SignInButton() {
   return (
     <button
+      type="submit"
       className="
       h-12
       w-full
@@ -88,7 +161,7 @@ function SignInButton() {
       active:scale-[0.99]
     "
     >
-      <Link to="/dashboard">Sign In To Portal</Link>
+      Sign In To Portal
     </button>
   );
 }

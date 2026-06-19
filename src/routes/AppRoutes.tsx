@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import Template from "../features/template/v1/SideBar/Template";
-import { HomePage } from "../features/home";
 import DashboardPage from "../features/dashboard/v1/DashboardPage";
 import PaymentPage from "../features/payment/v1/PaymentPage";
 import LoginPage from "../features/login/LoginPage";

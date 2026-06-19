@@ -5,16 +5,7 @@ import FeeProgressCard from "./ui/FeeProgressCard";
 import PaymentForm from "./ui/PaymentForm";
 import FeeBreakdownCard from "./ui/FeeBreakdownCard";
 import PaymentTimeline from "./ui/PaymentTimeline";
-import {
-  Banknote,
-  ShieldCheck,
-  Sparkles,
-  TrendingUp,
-  Wallet,
-  CircleDollarSign,
-  BadgePercent,
-  ReceiptText,
-} from "lucide-react";
+import { Sparkles, Wallet, CircleDollarSign, BadgePercent, ReceiptText } from "lucide-react";
 import { PAYMENT_SUMMARY_METRICS } from "./config/payment.config";
 
 const summaryIconMap = [Wallet, CircleDollarSign, BadgePercent, ReceiptText];

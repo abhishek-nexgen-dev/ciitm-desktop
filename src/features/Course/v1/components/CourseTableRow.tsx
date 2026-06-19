@@ -20,7 +20,7 @@ interface CourseTableRowProps {
 
 const CourseTableRow: React.FC<CourseTableRowProps> = ({ course, renderBars }) => {
   return (
-    <tr className="border-b border-gray-500 hover:bg-black/20 transition-colors duration-200">
+    <tr className="border-b  border-zinc-800  hover:bg-black/20 transition-colors duration-200">
       <td className="px-3 py-3 font-mono text-blue-400 whitespace-pre-line">{course.code}</td>
       <td className="px-3 py-3">
         <div className="font-semibold text-[1vw]">{course.courseName}</div>

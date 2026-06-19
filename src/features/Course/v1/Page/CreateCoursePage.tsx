@@ -4,10 +4,19 @@ import { CoursePageHeader } from "../components/CoursePageHeader";
 import { ProgramConfiguration } from "../components/ProgramConfiguration";
 import { ProgramDescription } from "../components/ProgramDescription";
 import { ProtocolNotice } from "../components/ProtocolNotice";
+import useCourseForm from "../hooks/useCourseForm";
+import { CourseSchema } from "../Validations/CreateCourse.Validate";
 
 function CreateCoursePage() {
+  const { handleSubmit } = useCourseForm();
+
+  const onSubmit = (data: CourseSchema) => {
+    alert("Course Created Successfully!");
+    console.log(data);
+  };
+
   return (
-    <main className="min-h-screen bg-[#0A0A0A]">
+    <form onSubmit={handleSubmit(onSubmit)} className="min-h-screen bg-[#0A0A0A]">
       <CoursePageHeader />
 
       <div className="mx-auto max-w-7xl space-y-8 p-6">
@@ -21,7 +30,7 @@ function CreateCoursePage() {
 
         <ProgramDescription />
       </div>
-    </main>
+    </form>
   );
 }
 

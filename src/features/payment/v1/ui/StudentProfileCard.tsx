@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { BadgeCheck, Mail, School2, UserCircle2, Phone, GraduationCap, IdCard } from "lucide-react";
+import { BadgeCheck, Mail, Phone, GraduationCap, IdCard } from "lucide-react";
 
 import { PAYMENT_STUDENT_PROFILE } from "../config/payment.config";
 

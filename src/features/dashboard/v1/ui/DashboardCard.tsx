@@ -32,10 +32,6 @@ export default function DashboardCard({ isActive, title, value, logo, range }: D
 
         <div className="flex items-end gap-3">
           <h2 className="text-3xl font-bold text-white tracking-tight">{value}</h2>
-
-          {/* <span className="pb-2 text-emerald-400 font-semibold text-sm">
-            +15.2%
-          </span> */}
         </div>
       </div>
 
@@ -51,7 +47,14 @@ export default function DashboardCard({ isActive, title, value, logo, range }: D
         </div>
 
         <div className="h-2 rounded-full bg-zinc-800 overflow-hidden flex">
-          <input type="range" min={0} max={range[1]} value={range[0]} className="w-full h-full" />
+          <input
+            type="range"
+            min={0}
+            max={range[1]}
+            value={range[0]}
+            readOnly
+            className="w-full h-full cursor-default "
+          />
         </div>
       </div>
     </div>

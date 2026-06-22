@@ -98,7 +98,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             readOnly={readonly}
             required={required}
             onKeyDown={onKeyDown}
-            onChange={(e) => onChange?.(name, e.target.value)}
+            onChange={(e) => {
+              console.log("Input typing:", e.target.value);
+              onChange?.(name, e.target.value);
+            }}
             className={clsx(
               `
               flex-1

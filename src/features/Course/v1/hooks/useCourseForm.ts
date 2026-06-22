@@ -5,7 +5,7 @@ import { CreateCourseValidation } from "../Validations/CreateCourse.Validate";
 
 const useCourseForm = () => {
   return useForm({
-    mode: "onChange",
+    mode: "onSubmit",
     resolver: zodResolver(CreateCourseValidation),
     defaultValues: {
       courseName: "",
@@ -14,7 +14,7 @@ const useCourseForm = () => {
       courseDuration: "",
       courseEligibility: "",
       coursePrice: 0,
-
+      courseImage: undefined,
       Department: "",
       AdmissionCriteria: [""],
     },

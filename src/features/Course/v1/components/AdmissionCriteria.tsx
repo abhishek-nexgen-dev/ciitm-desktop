@@ -1,25 +1,23 @@
-import { useState } from "react";
 import { CheckCircle2, Plus, Trash2 } from "lucide-react";
+import { useFieldArray, useFormState } from "react-hook-form";
+
+import useCourseFormContext from "../hooks/useCourseFormContext";
 import { SectionTitle } from "./SectionTitle";
 
 export function AdmissionCriteria() {
-  const [criteria, setCriteria] = useState<string[]>([
-    "Bachelor's degree in Computer Science or related field",
-    "Minimum 60% aggregate in qualifying examination",
-  ]);
+  const { register, control } = useCourseFormContext();
+
+  const { errors } = useFormState({
+    control,
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "AdmissionCriteria",
+  });
 
   const addCriterion = () => {
-    setCriteria([...criteria, ""]);
-  };
-
-  const updateCriterion = (index: number, value: string) => {
-    const updated = [...criteria];
-    updated[index] = value;
-    setCriteria(updated);
-  };
-
-  const removeCriterion = (index: number) => {
-    setCriteria(criteria.filter((_, i) => i !== index));
+    append("");
   };
 
   return (
@@ -28,16 +26,15 @@ export function AdmissionCriteria() {
 
       <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
         <div className="space-y-3">
-          {criteria.map((item, index) => (
+          {fields.map((field, index) => (
             <div
-              key={index}
+              key={field.id}
               className="flex items-center gap-3 rounded-lg border border-zinc-800 bg-black p-3"
             >
               <CheckCircle2 size={18} className="shrink-0 text-blue-400" />
 
               <input
-                value={item}
-                onChange={(e) => updateCriterion(index, e.target.value)}
+                {...register(`AdmissionCriteria.${index}`)}
                 placeholder="Enter admission criterion"
                 className="
                   flex-1
@@ -51,7 +48,7 @@ export function AdmissionCriteria() {
 
               <button
                 type="button"
-                onClick={() => removeCriterion(index)}
+                onClick={() => remove(index)}
                 className="
                   rounded-md
                   p-2
@@ -66,6 +63,10 @@ export function AdmissionCriteria() {
             </div>
           ))}
         </div>
+
+        {errors.AdmissionCriteria && (
+          <p className="mt-2 text-sm text-red-500">{errors.AdmissionCriteria.message as string}</p>
+        )}
 
         <button
           type="button"

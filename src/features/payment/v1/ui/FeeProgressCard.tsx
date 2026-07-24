@@ -20,7 +20,7 @@ function FeeProgressCard() {
         <div className="flex h-4 overflow-hidden rounded-full bg-white/5 ring-1 ring-inset ring-white/5">
           <div
             className="h-full rounded-full bg-gradient-to-r from-violet-500 via-fuchsia-400 to-indigo-400 shadow-[0_0_30px_rgba(139,92,246,0.35)]"
-            style={{ width: "5.9%" }}
+            style={{ width: "15.9%" }}
           />
         </div>
       </div>

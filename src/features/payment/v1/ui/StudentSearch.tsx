@@ -1,12 +1,22 @@
 import { useCallback, useId, useState } from "react";
 import { CheckCircle2, Search, ScanText } from "lucide-react";
+import api from "../../../../Utils/api.utils";
+import useStudentStore from "../../../Course/v1/store/student.store";
 
 function StudentSearch() {
   const inputId = useId();
   const [studentId, setStudentId] = useState("CIITM_906953");
 
-  const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const response = await api.get(`/api/v1/Student/FindByUniqueId?uniqueId=${studentId}`);
+
+    const { data } = response.data;
+
+    console.log(data);
+
+    useStudentStore.getState().setStudents([data]);
   }, []);
 
   return (

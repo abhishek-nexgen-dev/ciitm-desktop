@@ -3,10 +3,10 @@ import { FaChevronDown } from "react-icons/fa";
 import clsx from "clsx";
 
 type DropDownProps = {
-  options: string[];
+  options: string[] | number[];
   label?: string;
   error?: string;
-  onSelect: (option: string) => void;
+  onSelect: (option: string | number) => void;
   className?: string;
   value?: string;
   placeholder?: string;
@@ -42,7 +42,7 @@ const DropDown: React.FC<DropDownProps> = ({
     };
   }, []);
 
-  const handleSelect = (opt: string) => {
+  const handleSelect = (opt: string | number) => {
     if (disabled) return;
 
     onSelect(opt);

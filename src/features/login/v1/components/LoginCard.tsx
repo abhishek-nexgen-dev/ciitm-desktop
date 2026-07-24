@@ -21,6 +21,26 @@ export function LoginCard() {
   const loginMutation = useLogin();
   const navigate = useNavigate();
 
+  const TEST_CREDENTIALS = {
+    email: "admin@gmail.com",
+    password: "Admin@123",
+  };
+
+  const fillTestCredentials = () => {
+    setValue("email", TEST_CREDENTIALS.email, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+
+    setValue("password", TEST_CREDENTIALS.password, {
+      shouldValidate: true,
+      shouldDirty: true,
+    });
+
+    setEmail(TEST_CREDENTIALS.email);
+    setPassword(TEST_CREDENTIALS.password);
+  };
+
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
       console.log("Data ----->", data);
@@ -93,6 +113,25 @@ export function LoginCard() {
           error={errors.password?.message}
           readonly={false}
         />
+
+        <button
+          type="button"
+          onClick={fillTestCredentials}
+          className="
+    w-full
+    rounded-xl
+    border
+    border-indigo-500/30
+    bg-indigo-500/10
+    py-3
+    text-sm
+    font-medium
+    text-indigo-300
+    hover:bg-indigo-500/20
+  "
+        >
+          Use Test Credentials
+        </button>
 
         <Options />
 

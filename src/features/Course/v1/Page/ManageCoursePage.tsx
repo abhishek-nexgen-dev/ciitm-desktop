@@ -1,20 +1,23 @@
-import React from "react";
-
-import ManageCourseFilter from "../components/ManageCourseFilter";
 import ManageCourseTitle from "../components/ManageCourseTitle";
 import CourseTable from "../components/CourseTable";
 
+import api from "../../../../Utils/api.utils";
+import { useEffect } from "react";
+import useCourseStore from "../store/course.store";
+
 const ManageCoursePage = () => {
+  useEffect(() => {
+    const fetchLatestCourse = async () => {
+      const res = await api.get("/api/v1/user/findAllCourse");
+      useCourseStore.getState().setCourse(res.data.data);
+    };
+
+    fetchLatestCourse();
+  }, []);
+
   return (
     <div className="manage-course-page  min-h-screen flex flex-col bg-black text-white p-6 lg:p-[3vw]">
       <ManageCourseTitle />
-
-      <ManageCourseFilter
-        academicYears={["2023-2024", "2024-2025", "2025-2026"]}
-        departments={[]}
-        programLevels={[]}
-        onFilterChange={(filters) => console.log(filters)}
-      />
 
       <CourseTable />
     </div>

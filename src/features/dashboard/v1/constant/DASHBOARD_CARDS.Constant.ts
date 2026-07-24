@@ -1,46 +1,52 @@
-import { BookOpen, GraduationCap, Users, Wallet } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { Wallet, GraduationCap, BookOpen, Images, Image, Phone, LucideIcon } from "lucide-react";
 
-export type DashboardCardItem = {
+export interface DashboardCardItem {
   id: string;
-  isActive: boolean;
   title: string;
-  value: string;
-  range: [number, number];
   logo: LucideIcon;
-};
+}
 
-export const DASHBOARD_CARDS: DashboardCardItem[] = [
+export const DASHBOARD_CARDS = [
   {
-    id: "revenue",
-    isActive: true,
-    title: "Total Revenue",
-    value: "$84.2M",
-    range: [80, 100] as [number, number],
+    id: "earnings",
+    title: "Total Earnings",
     logo: Wallet,
+    isActive: true,
+    range: [80, 100] as [number, number],
   },
   {
-    id: "students",
-    isActive: false,
-    title: "Total Students",
-    value: "$24.8M",
-    range: [10, 100] as [number, number],
+    id: "admission",
+    title: "Total Admission",
     logo: GraduationCap,
-  },
-  {
-    id: "teachers",
     isActive: false,
-    title: "Total Teachers",
-    value: "$12.5M",
-    range: [20, 100] as [number, number],
-    logo: Users,
+    range: [10, 100] as [number, number],
   },
   {
     id: "courses",
-    isActive: false,
     title: "Total Courses",
-    value: "$6.3M",
-    range: [30, 100] as [number, number],
     logo: BookOpen,
+    isActive: false,
+    range: [20, 100] as [number, number],
+  },
+  {
+    id: "album",
+    title: "Total Album",
+    logo: Images,
+    isActive: false,
+    range: [30, 100] as [number, number],
+  },
+  {
+    id: "image",
+    title: "Total Image",
+    logo: Image,
+    isActive: false,
+    range: [40, 100] as [number, number],
+  },
+  {
+    id: "contact",
+    title: "Total Contact",
+    logo: Phone,
+    isActive: false,
+    range: [50, 100] as [number, number],
   },
 ];

@@ -55,7 +55,7 @@ const ManageCourseFilter: React.FC<ManageCourseFilterProps> = ({
           label="Academic Year"
           options={academicYears}
           value={filters.academicYear}
-          onSelect={(val) => updateFilters({ academicYear: val })}
+          onSelect={(val) => updateFilters({ academicYear: String(val) })}
           className="w-full"
         />
       </div>
@@ -66,7 +66,7 @@ const ManageCourseFilter: React.FC<ManageCourseFilterProps> = ({
           label="Department"
           options={["All Departments", ...departments]}
           value={filters.department}
-          onSelect={(val) => updateFilters({ department: val })}
+          onSelect={(val) => updateFilters({ department: String(val) })}
           className="w-full"
         />
       </div>
@@ -77,7 +77,7 @@ const ManageCourseFilter: React.FC<ManageCourseFilterProps> = ({
           label="Program Level"
           options={["All Levels", ...programLevels]}
           value={filters.programLevel}
-          onSelect={(val) => updateFilters({ programLevel: val })}
+          onSelect={(val) => updateFilters({ programLevel: String(val) })}
           className="w-full"
         />
       </div>

@@ -7,8 +7,33 @@ import AdministrativeNotes from "./v1/Components/AdministrativeNotes";
 
 import StudentProfileHeader from "./v1/Components/StudentProfileHeader";
 import { ParentInfoCard } from "./v1/Components/ParentInfoCard";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import api from "../../Utils/api.utils";
+import useStudentStore from "../Course/v1/store/student.store";
 
 export default function StudentProfilePage() {
+  const { studentId } = useParams();
+
+  console.log(studentId);
+
+  useEffect(() => {
+    async function fetchStudent() {
+      try {
+        const response = await api.get(`/api/v1/Student/FindByUniqueId?uniqueId=${studentId}`);
+
+        const { data } = response.data;
+
+        console.log(data);
+
+        useStudentStore.getState().setStudents([data]);
+      } catch (error) {
+        console.error("Error fetching student:", error);
+      }
+    }
+    fetchStudent();
+  }, [studentId]);
+
   return (
     <div className="min-h-screen bg-[#0B0C10] p-4 lg:p-6">
       <div className="mx-auto max-w-7xl space-y-4">
@@ -19,7 +44,7 @@ export default function StudentProfilePage() {
           <div className="space-y-4 lg:col-span-8">
             <div className="flex gap-2">
               <PersonalInformation />
-              <ParentInfoCard fatherName="asfd" motherName="asfd" emergencyPhone="asfd" />
+              <ParentInfoCard />
             </div>
             <AcademicCredentials />
             <AddressCard />

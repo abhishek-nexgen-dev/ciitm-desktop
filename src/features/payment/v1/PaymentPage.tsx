@@ -7,10 +7,19 @@ import FeeBreakdownCard from "./ui/FeeBreakdownCard";
 import PaymentTimeline from "./ui/PaymentTimeline";
 import { Sparkles, Wallet, CircleDollarSign, BadgePercent, ReceiptText } from "lucide-react";
 import { PAYMENT_SUMMARY_METRICS } from "./config/payment.config";
+import useStudentStore from "../../Course/v1/store/student.store";
 
 const summaryIconMap = [Wallet, CircleDollarSign, BadgePercent, ReceiptText];
 
 const PaymentPage = () => {
+  const student = useStudentStore((state) => state.students[0]);
+
+  console.log("ss---->", student);
+
+  if (!student) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <main className="min-h-screen  px-4 py-5 text-white sm:px-6 lg:px-8">
       <div className="mx-auto flex max-w-7xl flex-col gap-6">
@@ -42,6 +51,30 @@ const PaymentPage = () => {
             <StudentProfileCard />
 
             <div className="grid gap-4 sm:grid-cols-2">
+              <FinanceStatCard
+                key="1"
+                title="Course Fee"
+                value={String(student.fee.course_Fee)}
+                tone="violet"
+                // icon={<Wallet />}
+              />
+
+              <FinanceStatCard
+                key="1"
+                title="Amount Paid"
+                value={String(student.fee.amount_paid)}
+                tone="violet"
+                // icon={<Wallet />}
+              />
+
+              <FinanceStatCard
+                key="1"
+                title="Remaining"
+                value={String(student.fee.amount_due)}
+                tone="violet"
+                // icon={<Wallet />}
+              />
+
               {PAYMENT_SUMMARY_METRICS.map((metric, index) => {
                 const Icon = summaryIconMap[index] ?? Wallet;
 

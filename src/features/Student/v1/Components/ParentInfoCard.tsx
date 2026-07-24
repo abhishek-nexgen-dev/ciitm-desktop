@@ -2,14 +2,15 @@ import { User } from "lucide-react";
 import Input from "../../../../Components/Input";
 import Card from "./Card";
 import SectionTitle from "./SectionTitle";
+import useStudentStore from "../../../Course/v1/store/student.store";
 
-interface ParentInfoCardProps {
-  fatherName: string;
-  motherName: string;
-  emergencyPhone: string;
-}
+export function ParentInfoCard() {
+  const student = useStudentStore((state) => state.students[0]);
 
-export function ParentInfoCard({ fatherName, motherName, emergencyPhone }: ParentInfoCardProps) {
+  if (!student) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Card className="w-1/2">
       <div className="space-y-5">
@@ -18,7 +19,7 @@ export function ParentInfoCard({ fatherName, motherName, emergencyPhone }: Paren
         <div className="mt-6 grid gap-5 ">
           <Input
             type="text"
-            value={fatherName}
+            value={student.student.fatherName}
             label="Father Name"
             readonly={true}
             name="fatherName"
@@ -27,7 +28,7 @@ export function ParentInfoCard({ fatherName, motherName, emergencyPhone }: Paren
 
           <Input
             type="text"
-            value={motherName}
+            value={student.student.motherName}
             label="Mother Name"
             readonly={true}
             name="motherName"
@@ -36,7 +37,7 @@ export function ParentInfoCard({ fatherName, motherName, emergencyPhone }: Paren
 
           <Input
             type="text"
-            value={emergencyPhone}
+            value={student.student.contactNumber}
             label="Emergency Contact Number"
             readonly={true}
             name="emergencyPhone"

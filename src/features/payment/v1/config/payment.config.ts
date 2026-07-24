@@ -60,21 +60,6 @@ export const PAYMENT_OVERVIEW_METRICS: FinanceMetricConfig[] = [
 
 export const PAYMENT_SUMMARY_METRICS: FinanceMetricConfig[] = [
   {
-    title: "Course Fee",
-    value: "₹170,000",
-    tone: "violet",
-  },
-  {
-    title: "Paid",
-    value: "₹10,030",
-    tone: "emerald",
-  },
-  {
-    title: "Remaining",
-    value: "₹159,970",
-    tone: "amber",
-  },
-  {
     title: "Collection",
     value: "5.9%",
     tone: "indigo",

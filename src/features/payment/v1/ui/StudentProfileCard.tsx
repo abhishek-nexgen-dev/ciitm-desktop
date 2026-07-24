@@ -2,8 +2,17 @@ import { memo } from "react";
 import { BadgeCheck, Mail, Phone, GraduationCap, IdCard } from "lucide-react";
 
 import { PAYMENT_STUDENT_PROFILE } from "../config/payment.config";
+import useStudentStore from "../../../Course/v1/store/student.store";
 
 function StudentProfileCard() {
+  const student = useStudentStore((state) => state.students[0]);
+
+  console.log("ss---->", student);
+
+  if (!student) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section
       className="
@@ -28,8 +37,8 @@ function StudentProfileCard() {
         {/* Avatar */}
         <div className="relative">
           <img
-            src={PAYMENT_STUDENT_PROFILE.avatarUrl}
-            alt={PAYMENT_STUDENT_PROFILE.name}
+            src={student.student.avtar}
+            alt={student.student.firstName}
             className="
               h-32
               w-32
@@ -54,13 +63,13 @@ function StudentProfileCard() {
 
         {/* Name */}
         <h2 className="mt-4 text-3xl font-bold tracking-tight text-white">
-          {PAYMENT_STUDENT_PROFILE.name}
+          {student.student.firstName + " " + student.student.lastName}
         </h2>
 
         {/* Student ID */}
         <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-violet-500/10 px-3 py-1 text-sm text-violet-300">
           <IdCard size={14} />
-          {PAYMENT_STUDENT_PROFILE.studentId}
+          {student.uniqueId}
         </div>
 
         {/* Quick Stats */}
@@ -77,7 +86,7 @@ function StudentProfileCard() {
           <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-left">
             <p className="text-xs uppercase tracking-[0.2em] text-zinc-500">Semester</p>
 
-            <p className="mt-2 text-sm font-medium text-white">Semester 1</p>
+            <p className="mt-2 text-sm font-medium text-white">Semester {student.semester}</p>
           </div>
 
           <div className="rounded-2xl border border-white/5 bg-black/20 p-4 text-left col-span-2">
@@ -85,7 +94,7 @@ function StudentProfileCard() {
 
             <p className="mt-2 flex items-center gap-2 text-sm font-medium text-white">
               <Mail size={15} className="text-zinc-400" />
-              {PAYMENT_STUDENT_PROFILE.email}
+              {student.student.email}
             </p>
           </div>
 
@@ -94,7 +103,7 @@ function StudentProfileCard() {
 
             <p className="mt-2 flex items-center gap-2 text-sm font-medium text-white">
               <Phone size={15} className="text-zinc-400" />
-              {PAYMENT_STUDENT_PROFILE.mobile}
+              {student.student.email}
             </p>
           </div>
         </div>

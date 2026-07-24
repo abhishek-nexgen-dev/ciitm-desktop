@@ -3,7 +3,7 @@ import clsx from "clsx";
 type DashboardCardProps = {
   isActive: boolean;
   title: string;
-  value: string;
+  value: string | number;
   logo: React.ReactNode;
   range: [number, number];
 };

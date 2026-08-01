@@ -16,7 +16,7 @@ export function ProgramDescription() {
 
   return (
     <section className="space-y-6">
-      <SectionTitle number="04" title="Program Description" />
+      <SectionTitle number="05" title="Program Description" />
 
       <div className="overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950">
         {/* Toolbar */}

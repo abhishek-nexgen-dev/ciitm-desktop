@@ -12,22 +12,20 @@ export function ProgramConfiguration() {
     control,
   });
 
-  console.log("Errors : -------->", errors);
-
   return (
     <section className="space-y-6">
       <SectionTitle number="02" title="Program Configuration" />
 
       <div className="grid gap-6 md:grid-cols-2">
-        {/* Course Title */}
+        {/* Course Name */}
         <Controller
           name="courseName"
           control={control}
           render={({ field }) => (
             <Input
-              label="Course Title"
+              label="Course Name"
               name={field.name}
-              placeholder="Master of Artificial Intelligence"
+              placeholder="Bachelor of Computer Applications"
               value={field.value ?? ""}
               readonly={false}
               error={errors.courseName?.message}
@@ -42,9 +40,9 @@ export function ProgramConfiguration() {
           control={control}
           render={({ field }) => (
             <Input
-              label="Internal Reference Code"
+              label="Course Code"
               name={field.name}
-              placeholder="MDS-PR-2025"
+              placeholder="BCA-001"
               value={field.value ?? ""}
               readonly={false}
               error={errors.courseCode?.message}
@@ -70,31 +68,62 @@ export function ProgramConfiguration() {
                 "Civil Engineering",
                 "Electrical Engineering",
                 "Chemical Engineering",
-                "Aerospace Engineering",
-                "Biomedical Engineering",
-                "Industrial Engineering",
-                "Materials Science and Engineering",
-                "Nuclear Engineering",
-                "Petroleum Engineering",
-                "Environmental Engineering",
-                "Agricultural Engineering",
+                "Business Administration",
+                "Commerce",
+                "Arts",
               ]}
               onSelect={field.onChange}
             />
           )}
         />
 
-        {/* Duration */}
+        {/* Course Mode */}
         <Controller
-          name="courseDuration"
+          name="mode"
           control={control}
           render={({ field }) => (
             <DropDown
-              label="Admission Duration"
+              label="Course Mode"
               value={field.value}
-              error={errors.courseDuration?.message}
-              options={["1 Month", "2 Months", "3 Months", "4 Months"]}
+              error={errors.mode?.message}
+              options={["Offline", "Online", "Hybrid"]}
               onSelect={field.onChange}
+            />
+          )}
+        />
+
+        {/* Course Price */}
+        <Controller
+          name="coursePrice"
+          control={control}
+          render={({ field }) => (
+            <Input
+              type="number"
+              label="Course Fee (₹)"
+              name={field.name}
+              placeholder="75000"
+              value={Number(field.value)}
+              readonly={false}
+              error={errors.coursePrice?.message}
+              onChange={(_, value) => field.onChange(value)}
+            />
+          )}
+        />
+
+        {/* Total Seats */}
+        <Controller
+          name="seats"
+          control={control}
+          render={({ field }) => (
+            <Input
+              type="number"
+              label="Total Seats"
+              name={field.name}
+              placeholder="120"
+              value={field.value ?? ""}
+              readonly={false}
+              error={errors.seats?.message}
+              onChange={(_, value) => field.onChange(value)}
             />
           )}
         />

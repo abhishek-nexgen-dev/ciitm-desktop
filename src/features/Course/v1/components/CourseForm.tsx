@@ -8,6 +8,7 @@ import { CoursePageHeader } from "./CoursePageHeader";
 import { toast, ToastContainer } from "react-toastify";
 import useCourseFormContext from "../hooks/useCourseFormContext";
 import { CourseSchema } from "../Validations/CreateCourse.Validate";
+import { RequiredDocuments } from "./RequiredDocuments";
 
 const CourseForm = () => {
   const { handleSubmit } = useCourseFormContext();
@@ -35,6 +36,7 @@ const CourseForm = () => {
         <ProgramConfiguration />
 
         <AdmissionCriteria />
+        <RequiredDocuments />
 
         <ProgramDescription />
       </div>

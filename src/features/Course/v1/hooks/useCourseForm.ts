@@ -11,12 +11,15 @@ const useCourseForm = () => {
       courseName: "",
       courseCode: "",
       courseDescription: "",
+      mode: "offline",
       courseDuration: "",
       courseEligibility: "",
       coursePrice: 0,
+      seats: 0,
       courseImage: undefined,
       Department: "",
       AdmissionCriteria: [""],
+      RequiredDocuments: [""],
     },
   });
 };

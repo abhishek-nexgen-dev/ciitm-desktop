@@ -7,6 +7,7 @@ import StudentPage from "../features/Student/StudentPage";
 import StudentProfilePage from "../features/Student/StudentProfilePage";
 import CreateCoursePage from "../features/Course/v1/Page/CreateCoursePage";
 import ManageCoursePage from "../features/Course/v1/Page/ManageCoursePage";
+import CourseDetailsPage from "../features/CourseDetails/CourseDetailPage";
 
 function SimplePage({ title, description }: { title: string; description: string }) {
   return (
@@ -39,6 +40,7 @@ export function AppRoutes() {
         <Route path="payment" element={<PaymentPage />} />
         <Route path="create-course" element={<CreateCoursePage />} />
         <Route path="course-management" element={<ManageCoursePage />} />
+        <Route path="course-view" element={<CourseDetailsPage />} />
         <Route
           path="status"
           element={<SimplePage title="Status" description="Status view placeholder for v1." />}

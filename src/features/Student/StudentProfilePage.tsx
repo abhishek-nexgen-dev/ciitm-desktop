@@ -8,31 +8,50 @@ import AdministrativeNotes from "./v1/Components/AdministrativeNotes";
 import StudentProfileHeader from "./v1/Components/StudentProfileHeader";
 import { ParentInfoCard } from "./v1/Components/ParentInfoCard";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import api from "../../Utils/api.utils";
 import useStudentStore from "../Course/v1/store/student.store";
 
 export default function StudentProfilePage() {
   const { studentId } = useParams();
-
-  console.log(studentId);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let cancelled = false;
+
+    useStudentStore.getState().clearStudents();
+
     async function fetchStudent() {
       try {
         const response = await api.get(`/api/v1/Student/FindByUniqueId?uniqueId=${studentId}`);
 
         const { data } = response.data;
 
-        console.log(data);
-
-        useStudentStore.getState().setStudents([data]);
+        if (!cancelled) {
+          useStudentStore.getState().setStudents([data]);
+        }
       } catch (error) {
         console.error("Error fetching student:", error);
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
     }
     fetchStudent();
+
+    return () => {
+      cancelled = true;
+    };
   }, [studentId]);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#0B0C10] text-zinc-300">
+        Loading student profile…
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#0B0C10] p-4 lg:p-6">

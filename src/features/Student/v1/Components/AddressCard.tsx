@@ -10,7 +10,7 @@ function AddressCard() {
     return <div>Loading...</div>;
   }
 
-  const { street, city, state, pinCode } = student.address;
+  const { street, city, state, pinCode } = student.address ?? {};
 
   return (
     <Card>

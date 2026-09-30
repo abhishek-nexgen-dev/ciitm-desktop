@@ -1,7 +1,7 @@
 import { toast } from "react-toastify";
 import useLoginForm from "../hooks/useLoginForm";
 import useLogin from "../hooks/useLogin";
-import { Building2 } from "lucide-react";
+import { Building2, Mail, Lock, Eye, EyeOff, ShieldCheck, KeyRound } from "lucide-react";
 import { SocialLogin } from "./SocialLogin";
 import { SecurityBadges } from "./SecurityBadges";
 import { AuthFooter } from "./AuthFooter";
@@ -15,8 +15,7 @@ export function LoginCard() {
   const { errors } = formState;
   const [email, setEmail] = useState(watch("email"));
   const [password, setPassword] = useState(watch("password"));
-
-  const isRememberMe = useAuthStorage((state) => state.isRememberMe);
+  const [showPassword, setShowPassword] = useState(false);
 
   const loginMutation = useLogin();
   const navigate = useNavigate();
@@ -39,6 +38,7 @@ export function LoginCard() {
 
     setEmail(TEST_CREDENTIALS.email);
     setPassword(TEST_CREDENTIALS.password);
+    toast.info("Demo credentials loaded! Click 'Sign In' to proceed.");
   };
 
   const onSubmit = async (data: { email: string; password: string }) => {
@@ -55,40 +55,57 @@ export function LoginCard() {
         return;
       }
 
-      toast.success("Login successful! Redirecting to dashboard...");
+      toast.success("Credentials clearance verified! Entering dashboard...");
 
       setTimeout(() => {
         navigate("/dashboard");
-      }, 800);
+      }, 700);
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "Login failed. Please check your credentials.");
     }
   };
 
   return (
-    <div
-      className="
-      w-full
-      max-w-md
-      rounded-3xl
-      border
-      border-zinc-800
-      bg-black
-      backdrop-blur-xl
-      shadow-2xl
-      p-6
-      sm:p-8
-    "
-    >
+    <div className="w-full max-w-md rounded-3xl border border-zinc-800/90 bg-[#0A0B10]/95 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] p-6 sm:p-8 relative overflow-hidden">
+      {/* Top subtle highlight glow */}
+      <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
       <Header />
 
-      <form className="space-y-5 mt-8" onSubmit={handleSubmit(onSubmit)}>
+      {/* Demo Credentials Quick Fill Banner */}
+      <div className="mt-6 rounded-2xl border border-indigo-500/30 bg-gradient-to-r from-indigo-950/40 via-zinc-900/60 to-zinc-900/40 p-3 sm:p-3.5 flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="h-8 w-8 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-indigo-400 shrink-0">
+            <KeyRound size={15} />
+          </div>
+          <div className="truncate">
+            <div className="flex items-center gap-1.5">
+              <span className="text-xs font-semibold text-white">Default Admin</span>
+              <span className="text-[10px] font-mono text-indigo-300 bg-indigo-500/20 px-1.5 py-0.2 rounded border border-indigo-500/30">
+                SuperAdmin
+              </span>
+            </div>
+            <p className="text-[11px] text-zinc-400 font-mono truncate">admin@gmail.com • Admin@123</p>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={fillTestCredentials}
+          className="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-sm transition active:scale-95 shrink-0"
+        >
+          Autofill
+        </button>
+      </div>
+
+      <form className="space-y-4 sm:space-y-5 mt-6" onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="email"
-          label="Email"
-          placeholder="Enter your email"
+          label="Institutional Email"
+          placeholder="admin@gmail.com"
           type="email"
           value={email}
+          leftIcon={<Mail size={16} />}
           onChange={(_name, value) => {
             setValue("email", value);
             setEmail(value);
@@ -99,10 +116,21 @@ export function LoginCard() {
 
         <Input
           name="password"
-          label="Password"
-          placeholder="Enter your password"
-          type={isRememberMe ? "text" : "password"}
+          label="Security Password"
+          placeholder="Enter access password"
+          type={showPassword ? "text" : "password"}
           value={password}
+          leftIcon={<Lock size={16} />}
+          rightIcon={
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="text-zinc-500 hover:text-zinc-300 p-1 focus:outline-none transition"
+              title={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+            </button>
+          }
           onChange={(_name, value) => {
             setValue("password", value);
             setPassword(value);
@@ -110,25 +138,6 @@ export function LoginCard() {
           error={errors.password?.message}
           readonly={false}
         />
-
-        <button
-          type="button"
-          onClick={fillTestCredentials}
-          className="
-    w-full
-    rounded-xl
-    border
-    border-indigo-500/30
-    bg-indigo-500/10
-    py-3
-    text-sm
-    font-medium
-    text-indigo-300
-    hover:bg-indigo-500/20
-  "
-        >
-          Use Test Credentials
-        </button>
 
         <Options />
 
@@ -147,13 +156,17 @@ export function LoginCard() {
 function Header() {
   return (
     <div className="text-center">
-      <div className="mx-auto flex h-14 w-14 sm:h-16 sm:w-16 text-white items-center justify-center rounded-2xl border border-indigo-500/30 bg-indigo-500/10 shadow-lg shadow-indigo-500/20">
-        <Building2 size={28} />
+      <div className="mx-auto flex h-14 w-14 sm:h-16 sm:w-16 text-white items-center justify-center rounded-2xl border border-indigo-500/30 bg-gradient-to-br from-indigo-500/20 to-indigo-600/30 shadow-lg shadow-indigo-500/20">
+        <Building2 size={28} className="text-indigo-400" />
       </div>
 
-      <h1 className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight text-white">CIITM ERP</h1>
+      <h1 className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight text-white flex items-center justify-center gap-2">
+        CIITM ERP
+      </h1>
 
-      <p className="mt-1 text-xs sm:text-sm text-zinc-400">Institutional Governance & Administrative Portal</p>
+      <p className="mt-1 text-xs sm:text-sm text-zinc-400">
+        Institutional Governance & Administrative Portal
+      </p>
     </div>
   );
 }
@@ -173,7 +186,7 @@ function Options() {
           type="checkbox"
           checked={isRememberMe}
           onChange={handleRememberMeChange}
-          className="rounded border-zinc-700 bg-zinc-900 text-indigo-600 focus:ring-0"
+          className="h-4 w-4 rounded border-zinc-700 bg-zinc-900 text-indigo-600 focus:ring-0 focus:ring-offset-0"
         />
         Remember session
       </label>
@@ -194,21 +207,31 @@ function SignInButton({ loading }: { loading?: boolean }) {
       type="submit"
       disabled={loading}
       className="
-      h-11 sm:h-12
+      h-12
       w-full
       rounded-xl
-      bg-indigo-600
+      bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400
       font-semibold
       text-xs sm:text-sm
       text-white
-      shadow-lg shadow-indigo-600/20
+      shadow-xl shadow-indigo-600/25
       transition-all
-      hover:bg-indigo-500
       active:scale-[0.99]
       disabled:opacity-60
+      flex items-center justify-center gap-2
     "
     >
-      {loading ? "Authenticating Clearance..." : "Sign In To Portal"}
+      {loading ? (
+        <>
+          <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+          <span>Authenticating Clearance...</span>
+        </>
+      ) : (
+        <>
+          <ShieldCheck size={17} />
+          <span>Sign In to Portal</span>
+        </>
+      )}
     </button>
   );
 }

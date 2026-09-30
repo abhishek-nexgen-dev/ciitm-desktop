@@ -133,21 +133,30 @@ export interface BackendImage {
   _id: string;
   title?: string;
   albumName?: string;
+  albumID?: string;
+  userID?: string;
+  url?: string;
   imageUrl?: string;
   image_url?: string;
   uploadedAt?: string;
   createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface BackendContactInquiry {
   _id: string;
-  name: string;
-  email: string;
+  cName?: string;
+  name?: string;
+  cEmail?: string;
+  email?: string;
+  cNumber?: number | string;
   phone?: string;
-  subject: string;
-  message: string;
+  subject?: string;
+  cMessage?: string;
+  message?: string;
   status?: "new" | "responded" | "resolved" | string;
   createdAt?: string;
+  updatedAt?: string;
 }
 
 export interface BackendSocialLinks {

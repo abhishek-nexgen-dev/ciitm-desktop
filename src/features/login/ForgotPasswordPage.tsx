@@ -125,7 +125,9 @@ export default function ForgotPasswordPage() {
 
         {/* Step 1: Request OTP */}
         {step === 1 && (
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8 shadow-2xl space-y-5">
+          <div className="rounded-3xl border border-zinc-800/90 bg-[#0A0B10]/95 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] p-6 sm:p-8 space-y-5 relative overflow-hidden">
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
             <div className="space-y-1">
               <h2 className="text-base font-bold text-white">Account Identification</h2>
               <p className="text-xs text-zinc-400">
@@ -135,8 +137,8 @@ export default function ForgotPasswordPage() {
 
             <form onSubmit={handleSendOtp} className="space-y-4">
               <div>
-                <label className="text-xs font-medium text-zinc-300">Registered Email Address</label>
-                <div className="relative mt-1.5">
+                <label className="text-xs uppercase tracking-wider font-semibold text-zinc-400">Registered Email Address</label>
+                <div className="relative mt-2">
                   <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     type="email"
@@ -144,20 +146,20 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="admin@gmail.com"
-                    className="w-full pl-10 pr-3 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3.5 py-3 bg-zinc-900/60 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                   />
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-indigo-950/20 border border-indigo-500/20 text-xs text-indigo-300 flex items-start justify-between gap-2">
-                <div className="flex items-start gap-2">
-                  <AlertCircle size={15} className="shrink-0 mt-0.5" />
-                  <span>Default admin email: <strong className="text-white">admin@gmail.com</strong></span>
+              <div className="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-indigo-950/40 via-zinc-900/60 to-zinc-900/40 border border-indigo-500/30 text-xs text-indigo-300 flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <AlertCircle size={15} className="shrink-0 text-indigo-400" />
+                  <span className="truncate">Default admin: <strong className="text-white font-mono">admin@gmail.com</strong></span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setEmail("admin@gmail.com")}
-                  className="text-[11px] underline font-semibold text-indigo-300 hover:text-white shrink-0"
+                  className="px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 border border-indigo-500/40 text-[11px] font-semibold text-indigo-200 hover:text-white shrink-0 transition"
                 >
                   Use Default
                 </button>
@@ -166,9 +168,19 @@ export default function ForgotPasswordPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition active:scale-[0.99] disabled:opacity-50"
+                className="w-full py-3.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-xs sm:text-sm font-semibold text-white shadow-xl shadow-indigo-600/25 transition active:scale-[0.99] disabled:opacity-50 flex items-center justify-center gap-2"
               >
-                {loading ? "Transmitting OTP..." : "Send Verification Code"}
+                {loading ? (
+                  <>
+                    <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <span>Transmitting Code...</span>
+                  </>
+                ) : (
+                  <>
+                    <KeyRound size={16} />
+                    <span>Send Verification Code</span>
+                  </>
+                )}
               </button>
             </form>
 
@@ -177,7 +189,7 @@ export default function ForgotPasswordPage() {
                 to="/"
                 className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition"
               >
-                <ArrowLeft size={13} /> Back to Sign In
+                <ArrowLeft size={13} /> Back to Portal Sign In
               </Link>
             </div>
           </div>
@@ -185,7 +197,9 @@ export default function ForgotPasswordPage() {
 
         {/* Step 2: Verification Code & New Password */}
         {step === 2 && (
-          <div className="rounded-3xl border border-zinc-800 bg-zinc-950 p-6 sm:p-8 shadow-2xl space-y-5">
+          <div className="rounded-3xl border border-zinc-800/90 bg-[#0A0B10]/95 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] p-6 sm:p-8 space-y-5 relative overflow-hidden">
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+
             <div className="space-y-1">
               <h2 className="text-base font-bold text-white">Enter Verification Code</h2>
               <p className="text-xs text-zinc-400">
@@ -195,17 +209,17 @@ export default function ForgotPasswordPage() {
 
             <form onSubmit={handleResetPassword} className="space-y-4">
               <div>
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-medium text-zinc-300">6-Digit Authorization Code</label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs uppercase tracking-wider font-semibold text-zinc-400">6-Digit Authorization Code</label>
                   <button
                     type="button"
                     onClick={() => setOtp("849201")}
-                    className="text-[11px] text-indigo-400 hover:text-indigo-300 underline"
+                    className="text-[11px] text-indigo-400 hover:text-indigo-300 underline font-medium"
                   >
                     Fill Demo OTP (849201)
                   </button>
                 </div>
-                <div className="relative mt-1.5">
+                <div className="relative">
                   <KeyRound size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     type="text"
@@ -214,14 +228,14 @@ export default function ForgotPasswordPage() {
                     value={otp}
                     onChange={(e) => setOtp(e.target.value)}
                     placeholder="e.g. 849201"
-                    className="w-full pl-10 pr-3 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm font-mono tracking-widest text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3.5 py-3 bg-zinc-900/60 border border-zinc-800 rounded-xl text-sm font-mono tracking-widest text-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                   />
                 </div>
               </div>
 
               <div>
-                <div className="flex items-center justify-between">
-                  <label className="text-xs font-medium text-zinc-300">New Password</label>
+                <div className="flex items-center justify-between mb-1.5">
+                  <label className="text-xs uppercase tracking-wider font-semibold text-zinc-400">New Password</label>
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
@@ -231,22 +245,22 @@ export default function ForgotPasswordPage() {
                     {showPassword ? "Hide" : "Show"}
                   </button>
                 </div>
-                <div className="relative mt-1.5">
+                <div className="relative">
                   <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     type={showPassword ? "text" : "password"}
                     required
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Enter new password"
-                    className="w-full pl-10 pr-3 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500"
+                    placeholder="Enter new password (min. 6 chars)"
+                    className="w-full pl-10 pr-3.5 py-3 bg-zinc-900/60 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-xs font-medium text-zinc-300">Confirm New Password</label>
-                <div className="relative mt-1.5">
+                <label className="text-xs uppercase tracking-wider font-semibold text-zinc-400 mb-1.5 block">Confirm New Password</label>
+                <div className="relative">
                   <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
                   <input
                     type={showPassword ? "text" : "password"}
@@ -254,23 +268,23 @@ export default function ForgotPasswordPage() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Repeat new password"
-                    className="w-full pl-10 pr-3 py-2.5 bg-zinc-900 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500"
+                    className="w-full pl-10 pr-3.5 py-3 bg-zinc-900/60 border border-zinc-800 rounded-xl text-sm text-white focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition"
                   />
                 </div>
               </div>
 
-              <div className="flex gap-2 pt-1">
+              <div className="flex gap-2.5 pt-1">
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="flex-1 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-semibold text-zinc-400 hover:text-white transition"
+                  className="flex-1 py-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs font-semibold text-zinc-400 hover:text-white hover:bg-zinc-800 transition"
                 >
                   Change Email
                 </button>
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-indigo-600/20 transition disabled:opacity-50"
+                  className="flex-1 py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-xs sm:text-sm font-semibold text-white shadow-xl shadow-indigo-600/25 transition disabled:opacity-50"
                 >
                   {loading ? "Updating..." : "Update Password"}
                 </button>
@@ -281,21 +295,23 @@ export default function ForgotPasswordPage() {
 
         {/* Step 3: Success Confirmation */}
         {step === 3 && (
-          <div className="rounded-3xl border border-emerald-500/30 bg-zinc-950 p-6 sm:p-8 shadow-2xl space-y-5 text-center">
-            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+          <div className="rounded-3xl border border-emerald-500/30 bg-[#0A0B10]/95 backdrop-blur-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] p-6 sm:p-8 space-y-5 text-center relative overflow-hidden">
+            <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shadow-lg shadow-emerald-500/20">
               <CheckCircle2 size={30} />
             </div>
 
             <div>
               <h2 className="text-lg sm:text-xl font-bold text-white">Password Updated!</h2>
-              <p className="text-xs text-zinc-400 mt-1.5">
+              <p className="text-xs text-zinc-400 mt-1.5 leading-relaxed">
                 Your administrator credentials have been successfully updated. You may now sign in with your new password.
               </p>
             </div>
 
             <button
               onClick={() => navigate("/")}
-              className="w-full py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs sm:text-sm font-semibold text-white shadow-lg shadow-emerald-600/20 transition active:scale-[0.99]"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-xs sm:text-sm font-semibold text-white shadow-xl shadow-emerald-600/25 transition active:scale-[0.99]"
             >
               Return to Portal Sign In
             </button>

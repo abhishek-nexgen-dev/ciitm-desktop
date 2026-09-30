@@ -67,25 +67,14 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
         <div
           className={clsx(
-            `
-            flex
-            h-12
-            items-center
-            gap-3
-            rounded-lg
-            outline-none
-            bg-transparent
-           
-            
-            transition-all
-            `,
-            error ? "border-red-500" : "border-zinc-800 focus-within:border-blue-500",
+            `flex h-12 items-center gap-3 rounded-xl outline-none transition-all px-3.5`,
+            error
+              ? "border border-red-500 bg-red-950/10"
+              : "border border-zinc-800 bg-zinc-900/60 focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20",
             disabled && "cursor-not-allowed opacity-60",
-            !error && "focus-within:ring-2 focus-within:ring-blue-500/20",
-            !readonly && "bg-zinc-900/50  border p-4",
           )}
         >
-          {leftIcon && <div className="shrink-0 text-zinc-500">{leftIcon}</div>}
+          {leftIcon && <div className="shrink-0 text-zinc-500 flex items-center">{leftIcon}</div>}
 
           <input
             ref={ref}
@@ -99,23 +88,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             required={required}
             onKeyDown={onKeyDown}
             onChange={(e) => {
-              console.log("Input typing:", e.target.value);
               onChange?.(name, e.target.value);
             }}
             className={clsx(
-              `
-              flex-1
-              bg-transparent
-              text-sm
-              text-zinc-100
-              placeholder:text-zinc-600
-              outline-none
-              `,
+              `flex-1 bg-transparent text-sm text-zinc-100 placeholder:text-zinc-500 outline-none`,
               inputClassName,
             )}
           />
 
-          {rightIcon && <div className="shrink-0 text-zinc-500">{rightIcon}</div>}
+          {rightIcon && <div className="shrink-0 text-zinc-500 flex items-center">{rightIcon}</div>}
         </div>
 
         {error && <p className="text-xs text-red-400">{error}</p>}

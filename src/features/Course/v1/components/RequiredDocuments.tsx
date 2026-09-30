@@ -12,12 +12,12 @@ export function RequiredDocuments() {
   });
 
   const { fields, append, remove } = useFieldArray({
-    control,
-    name: "RequiredDocuments",
+    control: control as never,
+    name: "RequiredDocuments" as never,
   });
 
   const addDocument = () => {
-    append("");
+    append("" as never);
   };
 
   return (

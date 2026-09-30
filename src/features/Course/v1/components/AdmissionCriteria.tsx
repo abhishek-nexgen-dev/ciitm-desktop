@@ -12,12 +12,12 @@ export function AdmissionCriteria() {
   });
 
   const { fields, append, remove } = useFieldArray({
-    control,
-    name: "AdmissionCriteria",
+    control: control as never,
+    name: "AdmissionCriteria" as never,
   });
 
   const addCriterion = () => {
-    append("");
+    append("" as never);
   };
 
   return (

@@ -13,7 +13,7 @@ function PersonalInformation() {
   }
 
   return (
-    <Card className="w-1/2">
+    <Card className="w-full">
       <SectionTitle icon={<User size={16} />} title="Personal Information" />
 
       <div className="mt-6 grid gap-5 ">

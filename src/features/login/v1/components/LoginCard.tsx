@@ -7,7 +7,7 @@ import { SecurityBadges } from "./SecurityBadges";
 import { AuthFooter } from "./AuthFooter";
 import Input from "../../../../Components/Input";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import useAuthStorage from "../hooks/useAuthStorage";
 
 export function LoginCard() {
@@ -43,15 +43,14 @@ export function LoginCard() {
 
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      console.log("Data ----->", data);
       const res = await loginMutation.mutateAsync({
         email: data.email,
         password: data.password,
       });
 
-      const user = res.data.user;
+      const user = (res as any)?.data?.user || (res as any)?.user || (res as any)?.data;
 
-      if (user.role !== "admin") {
+      if (user && user.role && user.role !== "admin") {
         toast.error("You are not authorized to access this portal.");
         return;
       }
@@ -60,11 +59,9 @@ export function LoginCard() {
 
       setTimeout(() => {
         navigate("/dashboard");
-      }, 2000);
-
-      console.log("Response ----->", res);
-    } catch (error) {
-      toast.error("Login failed: " + (error instanceof Error ? error.message : String(error)));
+      }, 800);
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Login failed. Please check your credentials.");
     }
   };
 
@@ -92,7 +89,7 @@ export function LoginCard() {
           placeholder="Enter your email"
           type="email"
           value={email}
-          onChange={(name, value) => {
+          onChange={(_name, value) => {
             setValue("email", value);
             setEmail(value);
           }}
@@ -106,7 +103,7 @@ export function LoginCard() {
           placeholder="Enter your password"
           type={isRememberMe ? "text" : "password"}
           value={password}
-          onChange={(name, value) => {
+          onChange={(_name, value) => {
             setValue("password", value);
             setPassword(value);
           }}
@@ -135,7 +132,7 @@ export function LoginCard() {
 
         <Options />
 
-        <SignInButton />
+        <SignInButton loading={loginMutation.isPending} />
       </form>
 
       <SocialLogin />
@@ -150,20 +147,19 @@ export function LoginCard() {
 function Header() {
   return (
     <div className="text-center">
-      <div className="mx-auto flex h-16 w-16 text-white items-center justify-center rounded-xl border border-indigo-500/30 bg-indigo-500/10">
-        <Building2 size={30} />
+      <div className="mx-auto flex h-14 w-14 sm:h-16 sm:w-16 text-white items-center justify-center rounded-2xl border border-indigo-500/30 bg-indigo-500/10 shadow-lg shadow-indigo-500/20">
+        <Building2 size={28} />
       </div>
 
-      <h1 className="mt-5 text-3xl font-bold text-white">CIITM ERP</h1>
+      <h1 className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight text-white">CIITM ERP</h1>
 
-      <p className="mt-2 text-slate-400">Welcome to CIITM Admin Portal</p>
+      <p className="mt-1 text-xs sm:text-sm text-zinc-400">Institutional Governance & Administrative Portal</p>
     </div>
   );
 }
 
 function Options() {
   const isRememberMe = useAuthStorage((state) => state.isRememberMe);
-
   const setIsRememberMe = useAuthStorage((state) => state.setIsRememberMe);
 
   const handleRememberMeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -171,36 +167,48 @@ function Options() {
   };
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
-      <label className="flex items-center gap-2 text-slate-400">
-        <input type="checkbox" checked={isRememberMe} onChange={handleRememberMeChange} />
-        Remember me
+    <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
+      <label className="flex items-center gap-2 text-zinc-400 cursor-pointer select-none">
+        <input
+          type="checkbox"
+          checked={isRememberMe}
+          onChange={handleRememberMeChange}
+          className="rounded border-zinc-700 bg-zinc-900 text-indigo-600 focus:ring-0"
+        />
+        Remember session
       </label>
 
-      <button type="button" className="text-indigo-400 hover:text-indigo-300">
+      <Link
+        to="/forgot-password"
+        className="font-medium text-indigo-400 hover:text-indigo-300 transition"
+      >
         Forgot Password?
-      </button>
+      </Link>
     </div>
   );
 }
 
-function SignInButton() {
+function SignInButton({ loading }: { loading?: boolean }) {
   return (
     <button
       type="submit"
+      disabled={loading}
       className="
-      h-12
+      h-11 sm:h-12
       w-full
       rounded-xl
-      bg-indigo-500
+      bg-indigo-600
       font-semibold
+      text-xs sm:text-sm
       text-white
+      shadow-lg shadow-indigo-600/20
       transition-all
-      hover:bg-indigo-600
+      hover:bg-indigo-500
       active:scale-[0.99]
+      disabled:opacity-60
     "
     >
-      Sign In To Portal
+      {loading ? "Authenticating Clearance..." : "Sign In To Portal"}
     </button>
   );
 }

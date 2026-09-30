@@ -19,17 +19,17 @@ export function StudentFilters({ semesters, courses }: StudentFiltersProps) {
     try {
       setLoading(true);
 
-      const { data } = await api.get("/api/v1/Student/FindByCourseAndSemester", {
+      const res = await api.get("/api/v1/Student/FindByCourseAndSemester", {
         params: {
-          course,
+          course: course || undefined,
           semester,
           PerPage: 1,
           Limit: 20,
         },
       });
 
-      if (data.success) {
-        setStudents(data.data);
+      if (res.data?.data && Array.isArray(res.data.data)) {
+        setStudents(res.data.data);
       }
     } catch (error) {
       console.error(error);
@@ -78,15 +78,16 @@ export function StudentFilters({ semesters, courses }: StudentFiltersProps) {
         </div>
 
         {/* Search */}
-        <button
-          onClick={searchStudents}
-          disabled={loading}
-          className="mt-6 flex h-11 items-center justify-center rounded-lg border border-zinc-700 bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50"
-        >
-          <Filter size={18} />
-
-          <span className="ml-2">{loading ? "Searching..." : "Search"}</span>
-        </button>
+        <div className="flex items-end">
+          <button
+            onClick={searchStudents}
+            disabled={loading}
+            className="flex h-11 w-full items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/20 transition disabled:opacity-50"
+          >
+            <Filter size={16} />
+            <span className="ml-2">{loading ? "Searching Directory..." : "Filter Students"}</span>
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -16,10 +16,11 @@ const ManageCoursePage = () => {
   }, []);
 
   return (
-    <div className="manage-course-page  min-h-screen flex flex-col bg-black text-white p-6 lg:p-[3vw]">
-      <ManageCourseTitle />
-
-      <CourseTable />
+    <div className="manage-course-page w-full bg-[#07080C] text-white p-3.5 sm:p-6 lg:p-8 flex flex-col">
+      <div className="max-w-7xl mx-auto w-full">
+        <ManageCourseTitle />
+        <CourseTable />
+      </div>
     </div>
   );
 };

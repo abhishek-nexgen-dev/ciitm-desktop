@@ -2,14 +2,14 @@ import {
   LayoutDashboard,
   GraduationCap,
   Users,
-  Wallet,
   BookOpen,
-  Building2,
-  FileBarChart,
+  Briefcase,
+  Wallet,
+  Megaphone,
+  MessageSquareText,
+  Images,
+  Activity,
   Settings,
-  Shield,
-  Calendar,
-  ClipboardList,
 } from "lucide-react";
 
 import type { LucideIcon } from "lucide-react";
@@ -29,80 +29,65 @@ export const sidebarConfig: SidebarItemConfig[] = [
     icon: LayoutDashboard,
     path: "/dashboard",
   },
-
   {
     id: "admissions",
-    title: "Admissions",
+    title: "Admissions Review",
     icon: GraduationCap,
     path: "/admissions",
+    badge: "Review",
   },
-
-  {
-    id: "course-management",
-    title: "Course Management",
-    icon: BookOpen,
-    path: "/course-management",
-  },
-
   {
     id: "students",
-    title: "Students",
+    title: "Student Directory",
     icon: Users,
     path: "/student",
   },
-
+  {
+    id: "courses",
+    title: "Course Catalog",
+    icon: BookOpen,
+    path: "/course-management",
+  },
+  {
+    id: "faculty",
+    title: "Faculty & Staff",
+    icon: Briefcase,
+    path: "/teacher",
+  },
   {
     id: "finance",
-    title: "Finance",
+    title: "Tuition & Fees",
     icon: Wallet,
     path: "/payment",
   },
-
   {
-    id: "directories",
-    title: "Directories",
-    icon: Building2,
-    path: "/directories",
+    id: "notices",
+    title: "Campus Notices",
+    icon: Megaphone,
+    path: "/notices",
   },
-
   {
-    id: "lms",
-    title: "LMS",
-    icon: BookOpen,
-    path: "/lms",
+    id: "inquiries",
+    title: "Contact Inquiries",
+    icon: MessageSquareText,
+    path: "/inquiries",
   },
-
   {
-    id: "attendance",
-    title: "Attendance",
-    icon: ClipboardList,
-    path: "/attendance",
+    id: "media",
+    title: "Media Gallery",
+    icon: Images,
+    path: "/media",
   },
-
   {
-    id: "events",
-    title: "Events",
-    icon: Calendar,
-    path: "/events",
+    id: "system",
+    title: "Queue & System",
+    icon: Activity,
+    path: "/system",
+    badge: "Live",
   },
-
-  {
-    id: "reports",
-    title: "Reports",
-    icon: FileBarChart,
-    path: "/reports",
-  },
-
-  {
-    id: "users",
-    title: "User Management",
-    icon: Shield,
-    path: "/users",
-  },
-
   {
     id: "settings",
-    title: "Settings",
+    title: "Portal Settings",
     icon: Settings,
     path: "/settings",
   },

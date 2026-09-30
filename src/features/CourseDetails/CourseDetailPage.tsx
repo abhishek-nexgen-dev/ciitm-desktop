@@ -1,29 +1,95 @@
+import { useEffect, useState } from "react";
 import AdmissionCriteria from "./v1/Components/AdmissionCriteria";
 import CourseHero from "./v1/Components/CourseHero";
 import CourseSidebar from "./v1/Components/CourseSidebar";
 import ProgramDescription from "./v1/Components/ProgramDescription";
+import useCourseStore from "../Course/v1/store/course.store";
+import api from "../../Utils/api.utils";
+import { Link } from "react-router-dom";
+import { ArrowLeft } from "lucide-react";
 
 export default function CourseDetailsPage() {
+  const storeCourses = useCourseStore((state) => state.course);
+  const [courses, setCourses] = useState(storeCourses);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  useEffect(() => {
+    if (storeCourses.length === 0) {
+      api.get("/api/v1/user/findAllCourse").then((res) => {
+        if (res.data?.data && Array.isArray(res.data.data)) {
+          setCourses(res.data.data);
+          useCourseStore.getState().setCourse(res.data.data);
+        }
+      }).catch(console.warn);
+    } else {
+      setCourses(storeCourses);
+    }
+  }, [storeCourses]);
+
+  const activeCourse = courses[selectedIndex] || courses[0] || {
+    courseName: "Bachelor of Computer Applications (BCA)",
+    courseCode: "BCA-101",
+    Department: "Computer Science & Information Technology",
+    courseDuration: "3 Years",
+    duration: "3 Years",
+    mode: "Regular (Full Time)",
+    courseThumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600",
+  };
+
   return (
-    <div className="min-h-screen bg-black ">
-      <div className="mx-auto max-w-7xl p-8">
+    <div className="w-full bg-[#07080C] text-white p-3.5 sm:p-6 lg:p-8">
+      <div className="mx-auto max-w-7xl space-y-6">
+        {/* Navigation & Selector */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800/80 pb-4">
+          <div className="flex items-center gap-3">
+            <Link
+              to="/course-management"
+              className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 hover:bg-zinc-800 text-zinc-300 transition"
+              title="Back to Catalog"
+            >
+              <ArrowLeft size={16} />
+            </Link>
+            <div>
+              <span className="text-xs uppercase tracking-wider font-semibold text-indigo-400">Curriculum Syllabus</span>
+              <h2 className="text-base sm:text-lg font-bold text-white">Course Specification Dossier</h2>
+            </div>
+          </div>
+
+          {courses.length > 1 && (
+            <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
+              {courses.map((c, i) => (
+                <button
+                  key={c._id || c.courseCode || i}
+                  onClick={() => setSelectedIndex(i)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition ${
+                    selectedIndex === i
+                      ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/20"
+                      : "bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white"
+                  }`}
+                >
+                  {c.courseCode || c.courseName?.slice(0, 15)}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
         <CourseHero
-          title="M.Sc. Data Science & Analytics"
-          department="Department of Advanced Computing"
-          image="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600"
+          title={activeCourse.courseName}
+          department={activeCourse.Department || "Computer Science & IT"}
+          image={activeCourse.courseThumbnail || activeCourse.image || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600"}
+          duration={activeCourse.courseDuration || activeCourse.duration || "3 Years"}
+          mode={activeCourse.mode || "Full Time"}
         />
 
-        <div className="mt-8 grid gap-8 lg:grid-cols-12">
-          {/* Left */}
-
-          <div className="space-y-8 lg:col-span-8">
+        <div className="grid gap-6 lg:grid-cols-12">
+          {/* Left Column */}
+          <div className="space-y-6 lg:col-span-8">
             <ProgramDescription />
-
             <AdmissionCriteria />
           </div>
 
-          {/* Right */}
-
+          {/* Right Column */}
           <div className="lg:col-span-4">
             <CourseSidebar />
           </div>

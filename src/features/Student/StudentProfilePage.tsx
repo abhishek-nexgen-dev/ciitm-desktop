@@ -47,21 +47,21 @@ export default function StudentProfilePage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0B0C10] text-zinc-300">
+      <div className="flex w-full py-32 items-center justify-center bg-[#0B0C10] text-zinc-300">
         Loading student profile…
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#0B0C10] p-4 lg:p-6">
-      <div className="mx-auto max-w-7xl space-y-4">
+    <div className="w-full bg-[#0B0C10] p-3.5 sm:p-6">
+      <div className="mx-auto max-w-7xl space-y-4 sm:space-y-6">
         <StudentProfileHeader />
 
         {/* Content */}
-        <div className="grid gap-4 lg:grid-cols-12">
-          <div className="space-y-4 lg:col-span-8">
-            <div className="flex gap-2">
+        <div className="grid gap-4 sm:gap-6 lg:grid-cols-12">
+          <div className="space-y-4 sm:space-y-6 lg:col-span-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <PersonalInformation />
               <ParentInfoCard />
             </div>
@@ -69,7 +69,7 @@ export default function StudentProfilePage() {
             <AddressCard />
           </div>
 
-          <div className="space-y-4 lg:col-span-4">
+          <div className="space-y-4 sm:space-y-6 lg:col-span-4">
             <EngagementCard />
             <AdministrativeNotes />
             <SystemActions />

@@ -5,53 +5,56 @@ export interface Student {
   uniqueId: string;
 
   semester: number;
-  course_Id: string;
-  mode: string;
-  university: string;
+  course_Id?: string;
+  course?: string;
+  mode?: string;
+  university?: string;
 
   isAdmitted: boolean;
-  dateOfAdmission: string;
+  dateOfAdmission?: string;
+  applicationStatus?: string;
+  statusMessage?: string;
 
   student: {
     firstName: string;
     lastName: string;
-    fatherName: string;
-    motherName: string;
+    fatherName?: string;
+    motherName?: string;
 
     email: string[];
 
     dateOfBirth: string;
-    gender: string;
-    nationality: string;
+    gender?: string;
+    nationality?: string;
 
     contactNumber: string;
-    avtar: string;
+    avtar?: string;
   };
 
-  guardian: {
+  guardian?: {
     Gname: string;
     Grelation: string;
     GcontactNumber: string;
   };
 
-  address: {
+  address?: {
     street: string;
     city: string;
     state: string;
     pinCode: number;
   };
 
-  AadharCard: {
+  AadharCard?: {
     AadharCardNumber: string;
   };
 
-  tenth: {
+  tenth?: {
     tenthMarks: number;
     tenthBoard: string;
     tenthGrade: string;
   };
 
-  twelfth: {
+  twelfth?: {
     twelfthMarks: number;
     twelfthBoard: string;
     twelfthGrade: string;
@@ -59,12 +62,12 @@ export interface Student {
 
   fee: {
     amount_paid: number;
-    late_Fine: number;
-    amount_due: number;
-    course_Fee: number;
+    late_Fine?: number;
+    amount_due?: number;
+    course_Fee?: number;
   };
 
-  __v: number;
+  __v?: number;
 }
 
 interface StudentStore {

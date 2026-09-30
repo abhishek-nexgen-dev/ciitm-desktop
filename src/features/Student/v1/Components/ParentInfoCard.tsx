@@ -12,7 +12,7 @@ export function ParentInfoCard() {
   }
 
   return (
-    <Card className="w-1/2">
+    <Card className="w-full">
       <div className="space-y-5">
         <SectionTitle icon={<User size={16} />} title="Parent Information" />
 

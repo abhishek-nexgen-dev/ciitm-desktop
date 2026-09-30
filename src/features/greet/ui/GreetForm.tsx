@@ -7,8 +7,16 @@ function GreetForm() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const response = await invoke<string>("greet", { name });
-    setMessage(response);
+    try {
+      if (typeof window !== "undefined" && "__TAURI_INTERNALS__" in window) {
+        const response = await invoke<string>("greet", { name });
+        setMessage(response);
+      } else {
+        setMessage(`Hello, ${name || "world"}! (Web runtime)`);
+      }
+    } catch {
+      setMessage(`Hello, ${name || "world"}!`);
+    }
   }
 
   return (

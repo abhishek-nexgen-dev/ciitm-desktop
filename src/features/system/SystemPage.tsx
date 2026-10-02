@@ -15,6 +15,7 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import api from "../../Utils/api.utils";
 import { BackendQueueMetrics } from "../../types/backend.types";
+import { GreetForm } from "../greet";
 
 export default function SystemPage() {
   const [queueMetrics, setQueueMetrics] = useState<BackendQueueMetrics>({
@@ -224,6 +225,9 @@ export default function SystemPage() {
             <p className="text-xs text-zinc-500 mt-1">Live Telemetry Active</p>
           </div>
         </div>
+
+        {/* Tauri v2 Native Bridge Diagnostics */}
+        <GreetForm />
 
         {/* 5 RabbitMQ Queues */}
         <div className="space-y-3">

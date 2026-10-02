@@ -46,7 +46,8 @@ const CourseForm = () => {
       await createCourse.mutateAsync(formData);
       toast.success(`Course "${data.courseName}" created successfully!`);
       setTimeout(() => navigate("/course-management"), 1200);
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to create course on server.");
     }
   };

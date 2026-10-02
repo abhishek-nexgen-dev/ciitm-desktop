@@ -17,6 +17,15 @@ import api from "../../Utils/api.utils";
 import { BackendQueueMetrics } from "../../types/backend.types";
 import { GreetForm } from "../greet";
 
+interface BackendHealthStatus {
+  uptime?: number;
+  services?: {
+    database?: string;
+    broker?: string;
+  };
+  queues?: BackendQueueMetrics;
+}
+
 export default function SystemPage() {
   const [queueMetrics, setQueueMetrics] = useState<BackendQueueMetrics>({
     connected: false,
@@ -33,7 +42,7 @@ export default function SystemPage() {
       audit_queue: 0,
     },
   });
-  const [healthStatus, setHealthStatus] = useState<any>(null);
+  const [healthStatus, setHealthStatus] = useState<BackendHealthStatus | null>(null);
   const [loading, setLoading] = useState(false);
   const [activeQueue, setActiveQueue] = useState("notifications_queue");
   const [payloadText, setPayloadText] = useState(
@@ -104,7 +113,8 @@ export default function SystemPage() {
         ...prev,
       ]);
       fetchDiagnostics();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to publish message.");
     }
   };

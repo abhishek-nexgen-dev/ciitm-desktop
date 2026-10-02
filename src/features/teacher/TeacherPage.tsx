@@ -99,12 +99,13 @@ export default function TeacherPage() {
   };
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to remove faculty member ${name}?`)) return;
+    if (!window.confirm(`Are you sure you want to remove faculty member ${name}?`)) return;
     try {
       await api.delete(`/api/v1/admin/teacher/${id}/delete`);
       toast.success(`Faculty profile for ${name} removed.`);
       loadTeachers();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to remove faculty member.");
     }
   };
@@ -126,7 +127,8 @@ export default function TeacherPage() {
       }
       setIsAddModalOpen(false);
       loadTeachers();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to save faculty record.");
     }
   };

@@ -48,8 +48,9 @@ export default function NoticesPage() {
       } else {
         setNotices([]);
       }
-    } catch (err: any) {
-      console.warn("Error fetching notices:", err);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      console.warn("Error fetching notices:", error);
       toast.error(err?.response?.data?.message || "Failed to load circulars from server.");
     } finally {
       setLoading(false);
@@ -130,8 +131,9 @@ Website: https://ciitm.in | Email: contact@ciitm.edu`;
         file: null,
       });
       loadNotices();
-    } catch (err: any) {
-      console.error("Create notice error:", err);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      console.error("Create notice error:", error);
       toast.error(err?.response?.data?.message || "Failed to broadcast circular.");
     } finally {
       setIsSubmitting(false);

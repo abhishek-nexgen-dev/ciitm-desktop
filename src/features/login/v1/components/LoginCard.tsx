@@ -43,12 +43,12 @@ export function LoginCard() {
 
   const onSubmit = async (data: { email: string; password: string }) => {
     try {
-      const res = await loginMutation.mutateAsync({
+      const res = (await loginMutation.mutateAsync({
         email: data.email,
         password: data.password,
-      });
+      })) as { data?: { user?: { role?: string } }; user?: { role?: string } } | undefined;
 
-      const user = (res as any)?.data?.user || (res as any)?.user || (res as any)?.data;
+      const user = res?.data?.user || res?.user;
 
       if (user && user.role && user.role !== "admin") {
         toast.error("You are not authorized to access this portal.");
@@ -60,8 +60,9 @@ export function LoginCard() {
       setTimeout(() => {
         navigate("/dashboard");
       }, 700);
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Login failed. Please check your credentials.");
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      toast.error(err?.response?.data?.message || "Login failed. Please check your credentials.");
     }
   };
 

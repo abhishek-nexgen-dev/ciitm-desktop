@@ -8,7 +8,7 @@ export default function useLogin() {
       try {
         const response = await api.post(`/api/v1/auth/login`, { email, password });
         return response.data;
-      } catch (err: any) {
+      } catch (err: unknown) {
         // If credentials match default test credentials, allow login
         if (email === "admin@gmail.com" && password === "Admin@123") {
           return {
@@ -25,8 +25,12 @@ export default function useLogin() {
       }
     },
 
-    onSuccess: (res: any) => {
-      const user = res?.data?.user || res?.user || res?.data;
+    onSuccess: (res: {
+      data?: { user?: { _id?: string; name?: string; email?: string; role?: string } };
+      user?: { _id?: string; name?: string; email?: string; role?: string };
+      token?: string;
+    }) => {
+      const user = res?.data?.user || res?.user;
       if (user) {
         useAuthStorage.getState().setUser({
           _id: user._id || "admin_1",

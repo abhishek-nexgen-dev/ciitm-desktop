@@ -130,7 +130,8 @@ export default function AdmissionsPage() {
       );
       setReviewModalOpen(false);
       loadData();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to update application status.");
     } finally {
       setIsProcessing(false);
@@ -143,7 +144,8 @@ export default function AdmissionsPage() {
         recipientEmail: email,
       });
       toast.success(`Verification email dispatched to ${email}`);
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || `Email dispatch failed.`);
     }
   };
@@ -187,7 +189,8 @@ export default function AdmissionsPage() {
         address: "",
       });
       loadData();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Error submitting application.");
     } finally {
       setIsProcessing(false);

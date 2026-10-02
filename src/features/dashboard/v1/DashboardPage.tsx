@@ -66,7 +66,7 @@ const DashboardPage = () => {
         api.get("/api/v1/contact/admin/getContact"),
       ]);
 
-      let coursesList: any[] = [];
+      let coursesList: Array<{ courseName?: string }> = [];
       if (cRes.status === "fulfilled" && cRes.value.data?.data) {
         coursesList = cRes.value.data.data;
       }
@@ -192,8 +192,9 @@ const DashboardPage = () => {
         const res = await invoke<string>("greet", { name: user?.name || "Administrator" });
         setTauriGreetResult(res);
         toast.success("Rust IPC Bridge Active: " + res);
-      } catch (err: any) {
-        toast.error("Tauri command error: " + (err?.message || err));
+      } catch (err: unknown) {
+        const errorMsg = err instanceof Error ? err.message : String(err);
+        toast.error("Tauri command error: " + errorMsg);
       }
     } else {
       setTauriGreetResult("Web Runtime Simulation: Hello from Web client bridge!");

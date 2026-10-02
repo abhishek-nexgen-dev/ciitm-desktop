@@ -85,7 +85,8 @@ export default function SettingsPage() {
     try {
       await api.put("/api/v1/social/link", socialLinks);
       toast.success("Institutional social media and contact channels updated!");
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to update social channels.");
     } finally {
       setIsSaving(false);
@@ -98,7 +99,8 @@ export default function SettingsPage() {
     try {
       await api.put("/api/v1/frontend", frontendSettings);
       toast.success("Public landing page settings updated!");
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to update branding settings.");
     } finally {
       setIsSaving(false);
@@ -123,7 +125,8 @@ export default function SettingsPage() {
         },
       ]);
       setNewAdminEmail("");
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to assign role.");
     }
   };

@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { Filter } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Filter, Search, RotateCcw } from "lucide-react";
 import useStudentStore from "../../../Course/v1/store/student.store";
 import api from "../../../../Utils/api.utils";
+import { toast } from "react-toastify";
+import { BackendStudent } from "../../../../types/backend.types";
 
 interface StudentFiltersProps {
   semesters: number[];
@@ -12,46 +14,78 @@ export function StudentFilters({ semesters, courses }: StudentFiltersProps) {
   const setStudents = useStudentStore((state) => state.setStudents);
 
   const [semester, setSemester] = useState<number>(semesters[0] ?? 1);
-  const [course, setCourse] = useState("");
+  const [course, setCourse] = useState(courses[0] || "");
+  const [searchQuery, setSearchQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    if (!course && courses.length > 0) {
+      setCourse(courses[0]);
+    }
+  }, [courses, course]);
+
   const searchStudents = async () => {
+    const targetCourse = course || courses[0];
+    if (!targetCourse) {
+      toast.warn("Please select an academic course to search.");
+      return;
+    }
+
     try {
       setLoading(true);
 
       const res = await api.get("/api/v1/Student/FindByCourseAndSemester", {
         params: {
-          course: course || undefined,
+          course: targetCourse,
           semester,
           PerPage: 1,
-          Limit: 20,
+          Limit: 50,
         },
       });
 
       if (res.data?.data && Array.isArray(res.data.data)) {
-        setStudents(res.data.data);
+        let list = res.data.data;
+        if (searchQuery.trim()) {
+          const q = searchQuery.toLowerCase().trim();
+          list = list.filter((s: BackendStudent) => {
+            const fullName = `${s.student?.firstName || ""} ${s.student?.lastName || ""}`.toLowerCase();
+            const uid = (s.uniqueId || "").toLowerCase();
+            const email = (s.student?.email?.[0] || "").toLowerCase();
+            return fullName.includes(q) || uid.includes(q) || email.includes(q);
+          });
+        }
+        setStudents(list);
+        if (list.length > 0) {
+          toast.success(`Found ${list.length} student record(s) for ${targetCourse} (Sem ${semester}).`);
+        } else {
+          toast.info(`No students enrolled in ${targetCourse} for Semester ${semester}.`);
+        }
       }
-    } catch (error) {
-      console.error(error);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      toast.error(err?.response?.data?.message || "Failed to search students.");
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-950 p-4">
-      <div className="grid gap-4 lg:grid-cols-3">
-        {/* Course */}
-        <div>
-          <label className="mb-2 block text-xs text-zinc-500">Course</label>
+  const handleReset = () => {
+    setCourse(courses[0] || "");
+    setSemester(1);
+    setSearchQuery("");
+  };
 
+  return (
+    <div className="rounded-2xl border border-zinc-800 bg-zinc-950 p-4 sm:p-5 shadow-xl">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 items-end">
+        {/* Course */}
+        <div className="lg:col-span-4">
+          <label className="mb-1.5 block text-xs font-semibold text-zinc-400">Academic Course</label>
           <select
             value={course}
             onChange={(e) => setCourse(e.target.value)}
-            className="h-11 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3"
+            className="h-11 w-full rounded-xl border border-zinc-800 bg-zinc-900/90 px-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-indigo-500"
           >
-            <option value="">Select Course</option>
-
             {courses.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -61,13 +95,12 @@ export function StudentFilters({ semesters, courses }: StudentFiltersProps) {
         </div>
 
         {/* Semester */}
-        <div>
-          <label className="mb-2 block text-xs text-zinc-500">Semester</label>
-
+        <div className="lg:col-span-2">
+          <label className="mb-1.5 block text-xs font-semibold text-zinc-400">Semester</label>
           <select
             value={semester}
             onChange={(e) => setSemester(Number(e.target.value))}
-            className="h-11 w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3"
+            className="h-11 w-full rounded-xl border border-zinc-800 bg-zinc-900/90 px-3.5 text-xs sm:text-sm text-white focus:outline-none focus:border-indigo-500"
           >
             {semesters.map((item) => (
               <option key={item} value={item}>
@@ -77,15 +110,37 @@ export function StudentFilters({ semesters, courses }: StudentFiltersProps) {
           </select>
         </div>
 
-        {/* Search */}
-        <div className="flex items-end">
+        {/* Keyword Filter */}
+        <div className="lg:col-span-3">
+          <label className="mb-1.5 block text-xs font-semibold text-zinc-400">Search Name / ID</label>
+          <div className="relative">
+            <Search size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-500" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="e.g. Sanjeev or CIITM_906953"
+              className="h-11 w-full pl-9 pr-3 rounded-xl border border-zinc-800 bg-zinc-900/90 text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 font-mono"
+            />
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="lg:col-span-3 flex items-center gap-2">
           <button
             onClick={searchStudents}
             disabled={loading}
-            className="flex h-11 w-full items-center justify-center rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/20 transition disabled:opacity-50"
+            className="flex-1 flex h-11 items-center justify-center gap-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 font-semibold text-xs sm:text-sm text-white shadow-lg shadow-indigo-600/20 transition active:scale-95 disabled:opacity-50"
           >
-            <Filter size={16} />
-            <span className="ml-2">{loading ? "Searching Directory..." : "Filter Students"}</span>
+            <Filter size={15} />
+            <span>{loading ? "Searching..." : "Apply Filters"}</span>
+          </button>
+          <button
+            onClick={handleReset}
+            title="Reset Filters"
+            className="h-11 px-3 rounded-xl border border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-zinc-400 hover:text-white transition"
+          >
+            <RotateCcw size={15} />
           </button>
         </div>
       </div>

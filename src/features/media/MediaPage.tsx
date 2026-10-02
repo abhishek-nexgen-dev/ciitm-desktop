@@ -163,8 +163,9 @@ export default function MediaPage() {
       setIsAlbumModalOpen(false);
       setAlbumForm({ albumName: "", description: "", coverImage: "", file: null });
       loadData();
-    } catch (err: any) {
-      console.error("Create album error:", err);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      console.error("Create album error:", error);
       toast.error(err?.response?.data?.message || "Failed to create album on backend.");
     } finally {
       setIsSubmitting(false);
@@ -211,8 +212,9 @@ export default function MediaPage() {
       setIsImageModalOpen(false);
       setImageForm({ title: "", albumId: "", imageUrl: "", file: null });
       loadData();
-    } catch (err: any) {
-      console.error("Upload image error:", err);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      console.error("Upload image error:", error);
       toast.error(err?.response?.data?.message || "Failed to upload photo to backend.");
     } finally {
       setIsSubmitting(false);
@@ -233,7 +235,8 @@ export default function MediaPage() {
       setAlbums((prev) => prev.filter((a) => a._id !== id));
       setImages((prev) => prev.filter((img) => img.albumID !== id));
       loadData();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to delete album.");
     }
   };

@@ -24,8 +24,9 @@ function GreetForm() {
       } else {
         setMessage(`Hello, ${name || "Administrator"}! (Connected via Web/IPC Bridge Simulation)`);
       }
-    } catch (err: any) {
-      setMessage(`Bridge response: Hello, ${name || "Administrator"}! (${err?.message || "Standard"})`);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      setMessage(`Bridge response: Hello, ${name || "Administrator"}! (${msg || "Standard"})`);
     } finally {
       setLoading(false);
     }

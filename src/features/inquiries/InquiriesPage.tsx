@@ -42,8 +42,9 @@ export default function InquiriesPage() {
       } else {
         setInquiries([]);
       }
-    } catch (err: any) {
-      console.warn("Error fetching inquiries:", err);
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
+      console.warn("Error fetching inquiries:", error);
       toast.error(err?.response?.data?.message || "Failed to load inquiries from server.");
     } finally {
       setLoading(false);
@@ -70,7 +71,8 @@ export default function InquiriesPage() {
       await api.delete(`/api/v1/contact/admin/deleteContact/${id}`);
       toast.success("Inquiry removed from database.");
       loadInquiries();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to delete inquiry.");
       loadInquiries();
     }
@@ -102,7 +104,8 @@ export default function InquiriesPage() {
       setIsNewInquiryModalOpen(false);
       setNewInquiryForm({ cName: "", cEmail: "", cNumber: "", cMessage: "" });
       loadInquiries();
-    } catch (err: any) {
+    } catch (error: unknown) {
+      const err = error as { response?: { data?: { message?: string } } };
       toast.error(err?.response?.data?.message || "Failed to register inquiry.");
     } finally {
       setSubmittingInquiry(false);
